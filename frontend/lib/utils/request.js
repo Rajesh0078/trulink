@@ -5,9 +5,6 @@ import { cookies } from "next/headers";
 const BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
-// ------------------------------
-// Core request handler (Interceptor-like)
-// ------------------------------
 async function request(endpoint, options = {}, useAuth = true) {
   const cookieStore = await cookies();
   const token = cookieStore.get("TRULINK_ACCESS_TOKEN")?.value;
@@ -17,7 +14,6 @@ async function request(endpoint, options = {}, useAuth = true) {
     ...(options.headers || {}),
   };
 
-  // Attach token only if required
   if (useAuth && token) {
     headers.Authorization = `Bearer ${token}`;
   }
@@ -28,13 +24,11 @@ async function request(endpoint, options = {}, useAuth = true) {
       headers,
     });
 
-    // Handle non-2xx responses globally
     if (!response.ok) {
       const errorData = await response.json();
-      return errorData; // Return error data for further handling in actions
+      return errorData;
     }
 
-    // Parse JSON safely
     const data = await response.json();
     return data;
   } catch (error) {

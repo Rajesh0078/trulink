@@ -13,4 +13,16 @@ const getProfileAction = async () => {
   return res;
 };
 
-export { getProfileAction };
+const discoverUsers = async (data) => {
+  const res = await request(
+    "/user/discover",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    },
+    true,
+  );
+  return res;
+};
+
+export { getProfileAction, discoverUsers };

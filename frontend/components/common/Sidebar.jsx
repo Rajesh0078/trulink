@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import LOGO from '@/public/icons/flame.svg';
 import { useStore } from '@/store/appProvider';
-import { PiGear, PiGearSixFill } from 'react-icons/pi';
+import { PiGearSixFill } from 'react-icons/pi';
 import { IoChatbubblesSharp } from 'react-icons/io5';
 import { TiUser } from 'react-icons/ti';
 import { BiSolidBolt } from 'react-icons/bi';
@@ -49,7 +49,7 @@ const Sidebar = () => {
       </div>
 
       {/* Web View */}
-      <div className='h-full w-14 border-r border-border-2 flex-between flex-col py-3 z-60 hidden sm:flex'>
+      <div className='h-full min-w-14 border-r border-border-2 flex-between flex-col py-3 z-60 hidden sm:flex'>
         <div className='w-full'>
           <div className='h-10 w-full text-white rounded flex-center'>
             <Link href="/discover" className="inline-block">

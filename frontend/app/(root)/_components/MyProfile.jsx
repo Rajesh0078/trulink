@@ -1,11 +1,11 @@
 "use client"
 import React from 'react'
-import { useStore } from '@/store/appProvider';
 import { formatDate } from '@/lib/utils/helpers';
 import { FaLocationDot } from 'react-icons/fa6';
 import { AiOutlineLink } from 'react-icons/ai';
 import { BiSolidPencil } from 'react-icons/bi';
 import { MdHistory } from 'react-icons/md';
+import Link from 'next/link';
 
 const interestColors = [
   {
@@ -47,8 +47,7 @@ const Info = ({ title, info }) => {
   )
 }
 
-const MyProfile = () => {
-  const { state: { user } } = useStore();
+const MyProfile = ({ user }) => {
   return (
     <div className='py-4 px-6 mt-2 w-full '>
       <h1 className='text-[20px] sm:text-2xl sm:font-bold'>
@@ -108,10 +107,10 @@ const MyProfile = () => {
             <div className='text-lg font-semibold'>
               Personal Information
             </div>
-            <button className='btn-outlined flex-center gap-2 absolute right-4 top-4 px-1 sm:px-2'>
+            <Link prefetch href={'/profile/edit'} className='btn-outlined flex-center gap-2 absolute right-4 top-4 px-1 sm:px-2'>
               <BiSolidPencil className='text-[18px]' />
               <span className='hidden sm:inline'>Edit Profile</span>
-            </button>
+            </Link>
           </div>
           <div className='flex mt-6 gap-3 text-sm border-b border-border-2 pb-4 flex-wrap'>
             <div className='flex flex-col gap-3 flex-1'>

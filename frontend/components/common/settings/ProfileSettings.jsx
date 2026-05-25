@@ -2,23 +2,18 @@
 
 import Avatar from "@/components/ui/Avatar/Avatar";
 import DynamicFrom from "@/components/ui/DynamicForm/DynamicFrom";
-import { useStore } from "@/store/appProvider";
 import React, { useRef, useState } from "react";
 import { FaUpload } from "react-icons/fa";
 
 const profileSchema = [
-  { id: 1, name: 'display_name', label: 'Display Name', type: 'string', colSpan: 6, required: true, placeholder: 'Enter display name', widget: 'text' },
-  { id: 2, name: 'username', label: 'Username', type: 'string', colSpan: 6, required: true, placeholder: 'Enter username', widget: 'text' },
-  { id: 3, name: 'first_name', label: 'First Name', type: 'string', colSpan: 6, required: true, placeholder: 'Enter first name', widget: 'text' },
-  { id: 4, name: 'last_name', label: 'Last Name', type: 'string', colSpan: 6, required: false, placeholder: 'Enter last name', widget: 'text' },
-  { id: 5, name: 'email', label: 'Email', type: 'string', colSpan: 6, required: true, placeholder: 'Enter email', widget: 'email' },
-  { id: 5, name: 'bio', label: 'Bio', type: 'string', colSpan: 12, required: false, placeholder: 'Enter bio', widget: 'textarea' },
-
+  { id: 2, name: 'first_name', label: 'First Name', type: 'string', colSpan: 4, required: true, placeholder: 'Enter first name', widget: 'text' },
+  { id: 3, name: 'last_name', label: 'Last Name', type: 'string', colSpan: 4, required: false, placeholder: 'Enter last name', widget: 'text' },
+  { id: 1, name: 'display_name', label: 'Display Name', type: 'string', colSpan: 4, required: false, placeholder: 'Enter display name', widget: 'text' },
+  { id: 4, name: 'bio', label: 'Bio', type: 'string', colSpan: 12, required: false, placeholder: 'Enter bio', widget: 'textarea' },
 ]
 
-const ProfileSettings = () => {
+const ProfileSettings = ({ user }) => {
   const [profileImage, setProfileImage] = useState(null);
-  const { state: { user } } = useStore()
 
   const fileInputRef = useRef(null);
 

@@ -87,6 +87,22 @@ const UserSchema = new Schema(
       default: null,
     },
 
+    display_name: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+
+    phone: {
+      type: Number,
+      default: null,
+    },
+
+    dob: {
+      type: Date,
+      default: null,
+    },
+
     username: {
       type: String,
       trim: true,

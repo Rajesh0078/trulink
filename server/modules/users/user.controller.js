@@ -19,6 +19,18 @@ class UserController {
       message: "User profile updated successfully",
     });
   });
+
+  discoverProfiles = asyncHandler(async (req, res) => {
+    const { distance } = req.body;
+    const users = await userService.discoverProfiles(req.user.id, distance);
+    return sendSuccess(res, {
+      meta: {
+        count: users.length,
+      },
+      data: users,
+      message: "Users discovered successfully",
+    });
+  });
 }
 
 module.exports = new UserController();

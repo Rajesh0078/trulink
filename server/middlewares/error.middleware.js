@@ -1,7 +1,7 @@
 const { ZodError } = require("zod");
 
 function errorHandler(err, req, res, next) {
-  console.error(err);
+  console.error(err.name);
 
   if (err instanceof ZodError) {
     return res.status(400).json({
@@ -24,6 +24,10 @@ function errorHandler(err, req, res, next) {
 
   if (err.name === "JsonWebTokenError") {
     return res.status(401).json({ success: false, error: "Invalid token" });
+  }
+
+  if (err.name === "TokenExpiredError") {
+    return res.status(401).json({ success: false, error: "Token Expired" });
   }
 
   const status = err.status || err.statusCode || 500;

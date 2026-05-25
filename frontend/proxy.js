@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 const PROTECTED_ROUTES = [
   "/discover",
   "/profile",
+  "/profile/edit",
   "/settings",
   "/chat",
   "/match",

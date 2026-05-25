@@ -8,7 +8,7 @@ const String = ({ fieldProp }) => {
       control={fieldProp.control}
       name={fieldProp.name}
       rules={{
-        required: fieldProp.required ? "This field is required" : false,
+        required: fieldProp.required ? "This field is required!" : false,
       }}
       render={({ field, fieldState }) => {
         return (
@@ -37,7 +37,7 @@ const String = ({ fieldProp }) => {
                   className={`min-h-16 ${fieldState.error ? 'border-red-400! focus:ring-0! shake' : 'border-border'}`}
                 />
               ) : (
-                <div className='h-13.5'>
+                <>
                   <input
                     {...field}
                     placeholder={fieldProp.placeholder}
@@ -50,11 +50,11 @@ const String = ({ fieldProp }) => {
                     disabled={fieldProp.disabled}
                     className={`${fieldState.error ? 'border-red-400! focus:ring-0! shake' : 'border-border'}`}
                   />
-                  {
-                    fieldState.error && <p className='text-red-400 text-[12px]'>{fieldState.error.message}</p>
-                  }
-                </div>
+                </>
               )
+            }
+            {
+              fieldState.error && <p className='text-red-400 text-[12px]'>{fieldState.error.message}</p>
             }
           </div>
         )

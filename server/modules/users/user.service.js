@@ -14,14 +14,13 @@ class UserService {
     const allowedUpdates = [
       "first_name",
       "last_name",
-      "username",
-      "email",
-      "password",
       "avatar",
       "bio",
       "location",
       "settings",
       "interests",
+      "dob",
+      "display_name",
     ];
 
     const filteredData = {};
@@ -72,6 +71,14 @@ class UserService {
     const updatedUser = await user.save();
 
     return updatedUser;
+  }
+
+  async discoverProfiles(id, km) {
+    const nearByUsers = await userRepository.discoverUsers({
+      userId: id,
+      radius: km * 1000,
+    });
+    return nearByUsers;
   }
 }
 

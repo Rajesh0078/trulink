@@ -24,6 +24,41 @@ class UserRepository {
       runValidators: true,
     }).lean();
   }
+
+  async discoverUsers({ userId, radius = 10000 }) {
+    const currentUser = await User.findById(userId)
+      .select("location.coordinates")
+      .lean();
+
+    if (!currentUser) {
+      return [];
+    }
+
+    return User.aggregate([
+      {
+        $geoNear: {
+          near: {
+            type: "Point",
+            coordinates: currentUser.location.coordinates,
+          },
+
+          distanceField: "distance",
+          maxDistance: radius,
+          spherical: true,
+        },
+      },
+
+      {
+        $match: {
+          _id: { $ne: currentUser._id },
+          is_active: true,
+          "location.coordinates": {
+            $ne: [0, 0],
+          },
+        },
+      },
+    ]);
+  }
 }
 
 module.exports = new UserRepository();

@@ -5,7 +5,6 @@ import React from 'react'
 
 const Avatar = ({ customAvatar, className, labelClass }) => {
   const { state: { user } } = useStore();
-  console.log(user)
   return (
     <div className={`border-2 border-text rounded-full ${className}`}>
       {customAvatar && <Image src={customAvatar} alt="avatar" width={300} height={300} className='h-full w-full rounded-full object-cover' />}

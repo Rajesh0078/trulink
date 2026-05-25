@@ -2,9 +2,12 @@ import Avatar from '@/components/ui/Avatar/Avatar'
 import React from 'react'
 import { BiSolidPencil } from 'react-icons/bi'
 import { TiCamera } from 'react-icons/ti'
-import MyProfile from '../_components4/MyProfile';
+import MyProfile from '../_components/MyProfile';
+import { getProfileAction } from '@/lib/actions/userActions';
 
 const Profile = async () => {
+  const res = await getProfileAction();
+  const data = res?.data || {};
   return (
     <div className='h-full w-full overflow-y-auto scrollbar-thumb-text-3 scrollbar-thin'>
       <div className='bg-gray-800 w-full h-24 sm:h-40 border-b border-border relative -z-10'>
@@ -19,10 +22,10 @@ const Profile = async () => {
           className="ml-5 sm:ml-5 -mt-8 sm:-mt-15 relative custom-gradient h-15 w-15 sm:h-26 sm:w-26"
           labelClass="text-2xl sm:text-[46px]"
         />
-        <MyProfile />
+        <MyProfile user={data} />
       </div>
     </div>
   )
 }
 
-export default Profile
+export default Profile  

@@ -71,11 +71,15 @@
   @apply text-[20px] font-extrabold custom-gradient text-transparent bg-clip-text cursor-pointer;
 }
 
+@utility page {
+  @apply px-5 sm:px-10 pb-20 pt-5 sm:py-4 w-full overflow-y-auto scrollbar-thumb-text-3 scrollbar-thin;
+}
+
 
 input[type="text"],
 input[type="email"],
 input[type="password"], textarea {
-  @apply h-10 rounded placeholder:text-text-3 outline-none border
+  @apply h-9! sm:h-10! rounded placeholder:text-text-3 outline-none border
   border-border bg-surface-2 text-sm w-full px-3 focus:border-[rgba(108,99,255,.5)] text-white
    focus:shadow-[0_0_0_3px_rgba(108,99,255,.08)];
 }
