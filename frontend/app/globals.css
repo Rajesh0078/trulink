@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0d14;
+  --bg-2: #0f1320;
+  --bg-3: #141826;
+  --surface: #1a1f30;
+  --surface-2: #20263a;
+  --border: #ffffff12;
+  --border-2: #ffffff1e;
+  --accent: #6c63ff;
+  --accent-2: #a78bfa;
+  --accent-3: #38bdf8;
+  --gold: #f59e0b;
+  --text: #f0f2ff;
+  --text2: #9aa3c2;
+  --text3: #5a637a;
+  --green: #10b981;
+  --red: #f43f5e;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font-head:  'Syne',sans-serif;
+  --font-body:  'DM Sans',sans-serif;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-border: var(--border);
+  --color-border-2: var(--border-2);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-text: var(--text);
+  --color-text-2: var(--text2);
+  --color-text-3: var(--text3);
+}
+
+@utility custom-gradient {
+  background-image: linear-gradient(135deg,var(--accent),var(--accent-2),var(--accent-3));
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@utility btn {
+  @apply px-4 h-8 flex-center rounded-[5px] text-[13px] transition-all duration-200 cursor-pointer;
+}
+
+@utility btn-outlined {
+  @apply btn border border-border-2 hover:bg-surface text-text-2;
+}
+
+@utility btn-primary {
+  @apply btn bg-linear-to-r from-accent to-accent-2 hover:opacity-90 hover:-translate-y-px;
+}
+
+@utility card {
+  @apply bg-[rgba(26,31,48,.8)] border border-border-2 rounded-3xl p-5 sm:p-8 w-full max-w-125 backdrop-blur-lg shadow-lg;
+}
+
+@utility colored-text {
+  @apply text-[20px] font-extrabold custom-gradient text-transparent bg-clip-text cursor-pointer;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"], textarea {
+  @apply h-10 rounded placeholder:text-text-3 outline-none border
+  border-border bg-surface-2 text-sm w-full px-3 focus:border-[rgba(108,99,255,.5)] text-white
+   focus:shadow-[0_0_0_3px_rgba(108,99,255,.08)];
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@utility shake {
+  animation: shake 0.35s ease-in-out;
+}
