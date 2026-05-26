@@ -23,9 +23,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${syne.className} antialiased`}>
+      <link rel="icon" href="/icons/flame.svg" type="image/svg+xml" />
       <body className="bg-linear-to-br bg-[#152331] to-black text-white">
-        <div className='absolute -top-10 -left-10 h-100 w-100 bg-[radial-gradient(circle,var(--accent),transparent)] opacity-10 blur-2xl rounded-full' />
-        <div className='absolute bottom-0 right-0 h-100 w-100 bg-[radial-gradient(circle,var(--accent-2),transparent)] opacity-10 blur-2xl rounded-full' />
+        <div className='absolute -top-10 -left-10 h-100 w-100 bg-[radial-gradient(circle,var(--accent),transparent)] opacity-10 blur-2xl rounded-full -z-10' />
+        <div className='absolute bottom-0 right-0 h-100 w-100 bg-[radial-gradient(circle,var(--accent-2),transparent)] opacity-10 blur-2xl rounded-full -z-10' />
         {children}
         <ToastContainer />
       </body>
