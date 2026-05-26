@@ -1,5 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const guestAction = async (data) => {
   const cookieStore = await cookies();
@@ -30,4 +31,14 @@ const guestAction = async (data) => {
   }
 };
 
-export { guestAction };
+const loginAction = async (data) => {
+  console.log(data);
+};
+
+const logoutAction = async () => {
+  const cookieStore = await cookies();
+  await cookieStore.delete("TRULINK_ACCESS_TOKEN");
+  redirect("/login");
+};
+
+export { guestAction, loginAction, logoutAction };

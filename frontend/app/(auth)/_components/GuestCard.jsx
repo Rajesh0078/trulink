@@ -8,7 +8,7 @@ import { FaUser } from 'react-icons/fa';
 
 const guestSchema = [
   { id: 1, name: 'first_name', label: 'First Name', type: 'string', colSpan: 6, required: true, placeholder: 'Enter Full Name', widget: 'text' },
-  { id: 2, name: 'last_name', label: 'Last Name', type: 'string', colSpan: 6, required: false, placeholder: 'Enter Password', widget: 'text' }
+  { id: 2, name: 'last_name', label: 'Last Name', type: 'string', colSpan: 6, required: false, placeholder: 'Enter Last Name', widget: 'text' }
 ]
 
 const GuestCard = () => {

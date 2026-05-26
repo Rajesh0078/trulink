@@ -49,20 +49,27 @@ const Info = ({ title, info }) => {
 
 const MyProfile = ({ user }) => {
   return (
-    <div className='py-4 px-6 mt-2 w-full '>
-      <h1 className='text-[20px] sm:text-2xl sm:font-bold'>
+    <div className='py-4 px-6 sm:mt-1 w-full'>
+      <h1 className='text-[20px] sm:text-2xl sm:font-bold capitalize text-center sm:text-start'>
         {user?.full_name || user?.first_name || 'User'}
       </h1>
-      <p className='text-text-2'>
-        @{user?.username || 'username'} | Joined {formatDate(user?.createdAt) || 'N/A'}
-      </p>
-      <p className='mt-1 text-text-3 leading-5 text-sm'>
+      <div className='text-text-2 text-sm sm:text-[16px] flex gap-2 my-1 justify-center sm:justify-start'>
+        <span className='text-blue-400'>@{user?.username || 'No username'}</span>
+        <span>|</span>
+        <span>Joined {formatDate(user?.createdAt) || 'N/A'}</span>
+        <span>|</span>
+        <span className='flex items-center gap-1 text-green-400'>
+          <span className='h-2 w-2 rounded-full bg-green-400'></span>
+          Online
+        </span>
+      </div>
+      <p className='mt-1 text-text-3 leading-5 text-sm text-center sm:text-start'>
         &quot;{user?.bio || 'No bio yet updated!.'}&quot;
       </p>
       <div>
         {
           user?.interests && user.interests.length > 0 && (
-            <div className='mt-3 flex items-center gap-2 flex-wrap'>
+            <div className='mt-3 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 flex-wrap'>
               {user.interests.map((interest, index) => {
                 const color = interestColors[index % interestColors.length]
 
@@ -70,7 +77,7 @@ const MyProfile = ({ user }) => {
                   <span
                     key={index}
                     className={`
-                      text-sm px-3 py-1 rounded-full
+                      text-xs sm:text-sm px-3 py-1 rounded-full
                       ${color.bg}
                       ${color.text}
                     `}
@@ -83,7 +90,7 @@ const MyProfile = ({ user }) => {
           )
         }
       </div>
-      <div className='text-text-3 flex text-sm items-center mt-3 gap-3 gap-y-1 flex-wrap sm:flex-nowrap'>
+      <div className='text-text-3 flex text-[13px] sm:text-sm items-center justify-center sm:justify-start mt-4 gap-5 gap-y-1 flex-wrap sm:flex-nowrap'>
         {
           user?.address?.city && (
             <div className='flex items-center justify-center gap-1'>
@@ -94,10 +101,10 @@ const MyProfile = ({ user }) => {
             </div>
           )
         }
-        <div className='flex items-center justify-center gap-1'>
+        <div className='flex items-center justify-center gap-1 text-blue-400'>
           <AiOutlineLink className='text-[18px]' />
           <div>
-            trulink.com/{user?.username || 'username'}
+            trulink.online/{user?.username || 'username'}
           </div>
         </div>
       </div>
@@ -109,7 +116,7 @@ const MyProfile = ({ user }) => {
             </div>
             <Link prefetch href={'/profile/edit'} className='btn-outlined flex-center gap-2 absolute right-4 top-4 px-1 sm:px-2'>
               <BiSolidPencil className='text-[18px]' />
-              <span className='hidden sm:inline'>Edit Profile</span>
+              <span className='inline'>Edit Profile</span>
             </Link>
           </div>
           <div className='flex mt-6 gap-3 text-sm border-b border-border-2 pb-4 flex-wrap'>
@@ -136,7 +143,7 @@ const MyProfile = ({ user }) => {
             </div>
             <button className='btn-outlined flex-center gap-2 absolute right-4 top-4 px-1 sm:px-2'>
               <MdHistory className='text-[18px]' />
-              <span className='hidden sm:inline'>View All</span>
+              <span className='inline'>View All</span>
             </button>
           </div>
           <div className='w-full mt-6'>

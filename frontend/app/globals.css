@@ -75,6 +75,10 @@
   @apply px-5 sm:px-10 pb-20 pt-5 sm:py-4 w-full overflow-y-auto scrollbar-thumb-text-3 scrollbar-thin;
 }
 
+@utility checkbox {
+  @apply h-4 w-4 cursor-pointer appearance-none rounded border-2 border-border-2 bg-transparent transition-all duration-100 checked:border-accent checked:bg-accent hover:border-accent relative after:absolute after:left-px after:-top-0.5 after:hidden after:text-white after:content-["✓"] text-[13px] checked:after:block;
+}
+
 
 input[type="text"],
 input[type="email"],

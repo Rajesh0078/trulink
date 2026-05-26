@@ -56,7 +56,7 @@ const Sidebar = () => {
               <Image src={LOGO} alt="flame_logo" loading="eager" className='h-9 w-9 pointer-events-none' />
             </Link>
           </div>
-          <div className='flex-center flex-col gap-4 mt-8 text-text-2'>
+          <div className='flex-center flex-col gap-6 mt-8 text-text-2'>
             {
               navItems.map(({ href, icon: Icon }) => {
                 const active = pathname === href;
