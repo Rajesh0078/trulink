@@ -9,7 +9,7 @@ const Button = ({ fieldProps }) => {
     >
       <span className={fieldProps.labelClass}>{fieldProps.label || 'Submit'}</span>
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

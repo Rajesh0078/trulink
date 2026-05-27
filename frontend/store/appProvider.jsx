@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
 const initialState = {
   user: null,
@@ -9,16 +9,15 @@ const initialState = {
   matches: [],
   notifications: [],
   loading: false,
-  error: null,
+  error: null
 };
 
 const AppContext = createContext(null);
 
 function appReducer(state, action) {
   switch (action.type) {
-
     // ---------------- USER ----------------
-    case "SET_USER":
+    case 'SET_USER':
       return { ...state, user: action.payload };
     default:
       return state;
@@ -29,22 +28,18 @@ export function AppProvider({ children, externalState }) {
 
   useEffect(() => {
     if (externalState?.user?._id) {
-      dispatch({ type: "SET_USER", payload: externalState.user });
+      dispatch({ type: 'SET_USER', payload: externalState.user });
     }
   }, [externalState]);
 
-  return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 }
 
 export function useStore() {
   const context = useContext(AppContext);
 
   if (!context) {
-    throw new Error("useStore must be used inside AppProvider");
+    throw new Error('useStore must be used inside AppProvider');
   }
 
   return context;

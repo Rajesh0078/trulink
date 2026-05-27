@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Match = () => {
-  return (
-    <section className='page'>Match</section>
-  )
-}
+  return <section className="page">Match</section>;
+};
 
-export default Match
+export default Match;
