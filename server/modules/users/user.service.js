@@ -1,5 +1,10 @@
+const newOTP = require("otp-generators");
+const bcrypt = require("bcryptjs");
 const { getAddressFromCoordinates } = require("../../utils/helpers");
+const { sendError } = require("../../utils/response");
+const sendEmail = require("../../utils/sendEmail");
 const userRepository = require("./user.repository");
+const Otp = require("../../common/models/Otp");
 
 class UserService {
   async getProfile(id) {
@@ -8,6 +13,106 @@ class UserService {
       throw new Error("User not found");
     }
     return user;
+  }
+
+  async upgradeUserRequest(req, res) {
+    const id = req.user.id;
+    const { email, password } = req.body;
+    const existingUser = await userRepository.findByEmail(email);
+
+    if (existingUser) {
+      return sendError(res, {
+        statusCode: 409,
+        message: "Email already exists",
+      });
+    }
+
+    const currentUser = await userRepository.findById(id);
+    if (currentUser?.account_type === "permanent") {
+      return sendError(res, {
+        statusCode: 409,
+        message: "Guest users only allowed!",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+    await Otp.deleteMany({
+      user_id: id,
+      purpose: "upgrade_guest",
+    });
+    const otp = newOTP.generate(6, {
+      alphabets: false,
+      upperCase: false,
+      specialChar: false,
+    });
+    await Otp.create({
+      user_id: id,
+      otp,
+      purpose: "upgrade_guest",
+      type: "email",
+      email,
+      payload: {
+        hashed_password: hashedPassword,
+      },
+      expires_at: new Date(Date.now() + 5 * 60 * 1000),
+    });
+    await sendEmail({
+      to: email,
+      subject: "OTP Verification",
+      html: `
+        <h2>Your OTP Code</h2>
+
+        <h1>${otp}</h1>
+
+        <p>This OTP expires in 5 minutes.</p>
+      `,
+    });
+    return;
+  }
+
+  async upgradeGuestVerify(req, res) {
+    const userId = req.user.id;
+    const { otp } = req.body;
+
+    const otpDoc = await Otp.findOne({
+      user_id: userId,
+      otp,
+      purpose: "upgrade_guest",
+      verified: false,
+    });
+
+    if (!otpDoc) {
+      return sendError(res, {
+        statusCode: 400,
+        message: "Invalid OTP",
+      });
+    }
+
+    if (otpDoc.expires_at < new Date()) {
+      return sendError(res, {
+        statusCode: 400,
+        message: "OTP expired",
+      });
+    }
+    const user = await userRepository.findByIdWithoutLean(userId);
+
+    if (!user) {
+      return sendError(res, {
+        statusCode: 404,
+        message: "User not found",
+      });
+    }
+
+    user.email = otpDoc.email;
+    user.password = otpDoc.payload.hashed_password;
+    user.role = "user";
+    user.account_type = "permanent";
+    const updatedUser = await user.save();
+
+    await Otp.deleteOne({
+      _id: otpDoc._id,
+    });
+    return updatedUser;
   }
 
   async updateProfile(id, data) {

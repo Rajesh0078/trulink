@@ -1,5 +1,5 @@
 const asyncHandler = require("../../utils/asyncHanlder");
-const { sendCreated } = require("../../utils/response");
+const { sendCreated, sendSuccess } = require("../../utils/response");
 const authService = require("./auth.service");
 
 class AuthController {
@@ -17,7 +17,11 @@ class AuthController {
   });
 
   signIn = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: "User signed in successfully" });
+    const data = await authService.login(req, res);
+    return sendSuccess(res, {
+      data,
+      message: "Login successful",
+    });
   });
 
   signOut = asyncHandler(async (req, res) => {

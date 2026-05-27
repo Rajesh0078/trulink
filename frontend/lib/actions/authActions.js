@@ -2,6 +2,8 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+import request from '../utils/request';
+
 const guestAction = async (data) => {
   const cookieStore = await cookies();
   try {
@@ -29,7 +31,20 @@ const guestAction = async (data) => {
 };
 
 const loginAction = async (data) => {
-  console.log(data);
+  const cookieStore = await cookies();
+  const res = await request('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+  if (res.success) {
+    await cookieStore.set({
+      name: 'TRULINK_ACCESS_TOKEN',
+      value: res?.data?.accessToken,
+      httpOnly: true,
+      path: '/'
+    });
+  }
+  return res;
 };
 
 const logoutAction = async () => {

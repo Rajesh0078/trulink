@@ -15,7 +15,6 @@ function initSocket(server) {
   io.use((socket, next) => {
     try {
       const token = socket.handshake?.auth?.token;
-      console.log(token);
       if (!token) {
         return next(new Error("Authentication error: No token provided"));
       }

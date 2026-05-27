@@ -115,15 +115,24 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       lowercase: true,
-      required: function () {
-        return this.account_type === "permanent";
-      },
+      required: [
+        function () {
+          return this.account_type === "permanent";
+        },
+        "Email is required",
+      ],
     },
 
     password: {
       type: String,
       default: null,
       select: false,
+      required: [
+        function () {
+          return this.account_type === "permanent";
+        },
+        "Password is required",
+      ],
     },
 
     avatar: {
@@ -246,7 +255,11 @@ UserSchema.virtual("full_name").get(function () {
 });
 
 UserSchema.pre("save", async function () {
-  if (this.isModified("password") && this.password) {
+  if (
+    this.isModified("password") &&
+    this.password &&
+    !this.password.startsWith("$2")
+  ) {
     const salt = await bcrypt.genSalt(12);
 
     this.password = await bcrypt.hash(this.password, salt);

@@ -24,7 +24,7 @@ const sendError = (
   res,
   { statusCode = 500, message = "Internal Server Error", errors = null } = {},
 ) => {
-  const body = { success: false, message };
+  const body = { success: false, error: message };
   if (errors !== null) body.errors = errors;
   return res.status(statusCode).json(body);
 };

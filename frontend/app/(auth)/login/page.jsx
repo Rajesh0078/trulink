@@ -1,12 +1,14 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { BsEmojiWink } from 'react-icons/bs';
 import { FaSquareFacebook } from 'react-icons/fa6';
 import { FcGoogle } from 'react-icons/fc';
 import { GrApple } from 'react-icons/gr';
 import { IoIosUnlock } from 'react-icons/io';
+import { toast } from 'react-toastify';
 
 import DynamicFrom from '@/components/ui/DynamicForm/DynamicFrom';
 import { loginAction } from '@/lib/actions/authActions';
@@ -14,6 +16,7 @@ import LOGO from '@/public/icons/flame.svg';
 
 const Login = () => {
   const [acitveTab] = useState('email');
+  const navigate = useRouter();
   const forgotpasswordHanlder = () => {
     alert('ghgf');
   };
@@ -58,6 +61,17 @@ const Login = () => {
       onClick: forgotpasswordHanlder
     }
   ];
+
+  const loginHanlder = async (data) => {
+    const response = await loginAction(data);
+    if (response.success) {
+      toast.success(response.message);
+      navigate.push('/discover');
+    } else {
+      toast.error(response.error);
+    }
+  };
+
   return (
     <div className="w-full h-full flex z-100">
       <div className="h-full w-1/2 bg-surface border-r border-border hidden lg:flex-between py-22 flex-col px-[5%]">
@@ -105,7 +119,7 @@ const Login = () => {
           <p className="text-text-2 mt-1 mb-9">Sign in to your TruLink account.</p>
         </div>
         <div className="w-full">
-          <DynamicFrom submitLabel="Login" schema={loginSchema} submitHandler={loginAction} />
+          <DynamicFrom submitLabel="Login" schema={loginSchema} submitHandler={loginHanlder} />
         </div>
         <div className="flex-center gap-4 my-6 text-sm text-text-2 w-full">
           <p className="w-full h-px bg-border-2 rounded"></p>

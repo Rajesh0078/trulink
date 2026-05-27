@@ -1,8 +1,8 @@
 const http = require("http");
+require("dotenv").config();
 const app = require("./app");
 const connectDB = require("./config/mongodb");
 const initSocket = require("./config/socket");
-require("dotenv").config();
 
 async function bootstrap() {
   await connectDB();

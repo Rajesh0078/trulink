@@ -3,6 +3,7 @@ const {
   generateAccessToken,
   generateRefreshToken,
 } = require("../../utils/jwt");
+const { sendError } = require("../../utils/response");
 const userRepository = require("../users/user.repository");
 
 class AuthService {
@@ -29,6 +30,19 @@ class AuthService {
     const accessToken = generateAccessToken(payload);
     const refreshToken = generateRefreshToken(payload);
     return { accessToken, refreshToken };
+  }
+
+  async login(req, res) {
+    const data = req.body;
+    const user = await userRepository.findByEmail(data.email);
+    if (!user) {
+      return sendError(res, {
+        statusCode: 404,
+        message: "User not found",
+      });
+    }
+    const tokens = await this._issueTokens(user);
+    return { user, ...tokens };
   }
 }
 

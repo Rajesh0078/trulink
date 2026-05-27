@@ -12,6 +12,19 @@ const guestSchema = z.object({
     .optional(),
 });
 
+const loginSchema = z.object({
+  email: z.string().trim().email("Invalid email address"),
+
+  password: z
+    .string()
+    .trim()
+    .regex(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "Password must contain uppercase, lowercase, number and special character",
+    ),
+});
+
 module.exports = {
   guestSchema,
+  loginSchema,
 };
