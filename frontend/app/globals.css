@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --bg: #0a0d14;
@@ -19,8 +19,8 @@
   --red: #f43f5e;
   --radius: 16px;
   --radius-sm: 10px;
-  --font-head:  'Syne',sans-serif;
-  --font-body:  'DM Sans',sans-serif;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
 @theme inline {
@@ -40,7 +40,7 @@
 }
 
 @utility custom-gradient {
-  background-image: linear-gradient(135deg,var(--accent),var(--accent-2),var(--accent-3));
+  background-image: linear-gradient(135deg, var(--accent), var(--accent-2), var(--accent-3));
 }
 
 @utility flex-between {
@@ -79,17 +79,18 @@
   @apply h-4 w-4 cursor-pointer appearance-none rounded border-2 border-border-2 bg-transparent transition-all duration-100 checked:border-accent checked:bg-accent hover:border-accent relative after:absolute after:left-px after:-top-0.5 after:hidden after:text-white after:content-["✓"] text-[13px] checked:after:block;
 }
 
-
-input[type="text"],
-input[type="email"],
-input[type="password"], textarea {
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea {
   @apply h-9! sm:h-10! rounded placeholder:text-text-3 outline-none border
   border-border bg-surface-2 text-sm w-full px-3 focus:border-[rgba(108,99,255,.5)] text-white
    focus:shadow-[0_0_0_3px_rgba(108,99,255,.08)];
 }
 
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
   20% {
