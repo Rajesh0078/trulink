@@ -89,7 +89,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className='h-full w-full lg:w-1/2 flex pt-21 flex-col px-[8%]'>
+      <div className='h-full w-full lg:w-1/2 flex pt-16 sm:pt-21 flex-col px-[8%]'>
         <div className='w-full'>
           <h2 className='text-3xl font-bold'>Welcome Back!</h2>
           <p className='text-text-2 mt-1 mb-9'>Sign in to your TruLink account.</p>
