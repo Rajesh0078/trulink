@@ -13,7 +13,18 @@ class AuthController {
   });
 
   register = asyncHandler(async (req, res) => {
-    res.status(201).json({ message: "User registered successfully" });
+    const data = await authService.registerRequest(req, res);
+    return sendSuccess(res, {
+      message: "Otp Sent successfully",
+    });
+  });
+
+  registerVerify = asyncHandler(async (req, res) => {
+    const data = await authService.registerVerify(req, res);
+    return sendSuccess(res, {
+      data,
+      message: "Account created successfully",
+    });
   });
 
   signIn = asyncHandler(async (req, res) => {

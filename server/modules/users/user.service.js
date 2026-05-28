@@ -1,6 +1,8 @@
-const newOTP = require("otp-generators");
 const bcrypt = require("bcryptjs");
-const { getAddressFromCoordinates } = require("../../utils/helpers");
+const {
+  getAddressFromCoordinates,
+  sendAndSaveOtp,
+} = require("../../utils/helpers");
 const { sendError } = require("../../utils/response");
 const sendEmail = require("../../utils/sendEmail");
 const userRepository = require("./user.repository");
@@ -40,22 +42,17 @@ class UserService {
       user_id: id,
       purpose: "upgrade_guest",
     });
-    const otp = newOTP.generate(6, {
-      alphabets: false,
-      upperCase: false,
-      specialChar: false,
-    });
-    await Otp.create({
+
+    const otp = await sendAndSaveOtp({
       user_id: id,
-      otp,
       purpose: "upgrade_guest",
       type: "email",
       email,
       payload: {
         hashed_password: hashedPassword,
       },
-      expires_at: new Date(Date.now() + 5 * 60 * 1000),
     });
+
     await sendEmail({
       to: email,
       subject: "OTP Verification",

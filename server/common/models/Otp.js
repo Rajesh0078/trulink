@@ -17,7 +17,6 @@ const OtpSchema = new Schema(
       type: String,
       enum: [
         "register",
-        "login",
         "forgot_password",
         "upgrade_guest",
         "phone_verification",

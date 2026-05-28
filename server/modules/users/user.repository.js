@@ -12,6 +12,10 @@ class UserRepository {
     return User.findById(id);
   }
 
+  async findUserByQuery(query) {
+    return User.findOne(query).lean();
+  }
+
   async createUser(data) {
     const user = new User(data);
     await user.save();
