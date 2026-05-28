@@ -1,8 +1,15 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 
 const String = ({ fieldProp }) => {
+  const [canViewPass, setCanViewPass] = useState(false);
+  const Icon = !canViewPass ? IoIosEye : IoIosEyeOff;
+
+  const passwordViewHandler = () => {
+    setCanViewPass((p) => !p);
+  };
   return (
     <Controller
       control={fieldProp.control}
@@ -34,11 +41,17 @@ const String = ({ fieldProp }) => {
                 className={`min-h-16 ${fieldState.error ? 'border-red-400! focus:ring-0! shake' : 'border-border'}`}
               />
             ) : (
-              <>
+              <div className="relative">
                 <input
                   {...field}
                   placeholder={fieldProp.placeholder}
-                  type={fieldProp.widget}
+                  type={
+                    fieldProp.widget === 'password'
+                      ? canViewPass
+                        ? 'text'
+                        : 'password'
+                      : fieldProp.widget
+                  }
                   value={field.value || ''}
                   autoComplete="OFF"
                   autoCorrect="off"
@@ -47,7 +60,16 @@ const String = ({ fieldProp }) => {
                   disabled={fieldProp.disabled}
                   className={`${fieldState.error ? 'border-red-400! focus:ring-0! shake' : 'border-border'}`}
                 />
-              </>
+                {fieldProp.widget === 'password' && (
+                  <button
+                    type="button"
+                    className="text-text-2 absolute top-1/2 -translate-y-1/2 text-xl right-2.5"
+                    onClick={passwordViewHandler}
+                  >
+                    <Icon />
+                  </button>
+                )}
+              </div>
             )}
             {fieldState.error && (
               <p className="text-red-400 text-[12px]">{fieldState.error.message}</p>

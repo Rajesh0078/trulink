@@ -17,14 +17,14 @@ const CheckBox = ({ fieldProp }) => {
                 {...field}
                 checked={field.value || false}
                 type="checkbox"
-                id={fieldProp.id}
+                id={fieldProp.name}
                 className="checkbox"
               />
 
               {fieldProp.label && (
                 <label
-                  htmlFor={fieldProp.id}
-                  className="capitalize text-text-3 text-sm cursor-pointer flex items-center select-none"
+                  htmlFor={fieldProp.name}
+                  className="capitalize text-text-2/60 font-semibold text-sm cursor-pointer flex items-center select-none"
                 >
                   {fieldProp.required && <span className="text-red-600 me-1">*</span>}
 
@@ -34,7 +34,7 @@ const CheckBox = ({ fieldProp }) => {
             </div>
 
             {fieldState.error && (
-              <span className="text-xs text-red-500">{fieldState.error.message}</span>
+              <span className="text-xs text-red-400">{fieldState.error.message}</span>
             )}
           </div>
         );
