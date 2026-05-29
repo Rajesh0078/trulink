@@ -6,7 +6,7 @@ import { GrApple } from 'react-icons/gr';
 import { IoCall } from 'react-icons/io5';
 
 import TitleCard from '@/components/common/TitleCard';
-import CheckBox from '@/components/ui/DynamicForm/Boolean/CheckBox';
+import Boolean from '@/components/ui/DynamicForm/Boolean/Boolean';
 import String from '@/components/ui/DynamicForm/String/String';
 
 const AccountType = ({ control, handleStateChange, state }) => {
@@ -19,14 +19,14 @@ const AccountType = ({ control, handleStateChange, state }) => {
       <div className="flex gap-4 my-6">
         <button
           type="button"
-          className={`card flex flex-col items-start ${state.account_type === 'permanent' && 'border-accent'}`}
+          className={`card p-5 md:p-8 flex flex-col items-start text-start ${state.account_type === 'permanent' && 'border-accent'}`}
           onClick={() => handleStateChange('account_type', 'permanent')}
         >
-          <div>Permanent</div>
+          <div className="text-[15px]">Permanent</div>
           <p className="text-text-2 text-xs">
             Full account with email. Unlock all social features forever.
           </p>
-          <ul className="text-sm mt-3 text-start text-accent">
+          <ul className="text-xs sm:text-sm mt-2 sm:mt-3 text-start text-accent">
             <li>Everything in anonymous</li>
             <li>Friends & notifications</li>
             <li>Chat history saved</li>
@@ -35,14 +35,14 @@ const AccountType = ({ control, handleStateChange, state }) => {
         </button>
         <button
           type="button"
-          className={`card flex flex-col items-start ${state.account_type === 'guest' && 'border-accent'}`}
+          className={`card p-5 md:p-8 flex flex-col items-start text-start ${state.account_type === 'guest' && 'border-accent'}`}
           onClick={() => handleStateChange('account_type', 'guest')}
         >
           <div>Anonymous</div>
           <p className="text-text-2 text-xs">
             No email needed. Chat freely without revealing your identity.
           </p>
-          <ul className="text-sm text-text-3 mt-3 text-start">
+          <ul className="text-xs sm:text-sm text-text-3 mt-2 sm:mt-3 text-start">
             <li className="text-accent">Anonymous Chat</li>
             <li className="text-accent">Discover nearby</li>
             <li>No chat history</li>
@@ -68,13 +68,14 @@ const AccountType = ({ control, handleStateChange, state }) => {
               This is the only name others will see. You can change it anytime.
             </p>
           </div>
-          <div className="mt-5 px-px mb-5">
-            <CheckBox
+          <div className="mt-6 px-px mb-5">
+            <Boolean
               fieldProp={{
                 control,
-                name: 'terms_of_use',
+                name: 'settings.terms_of_use',
+                widget: 'checkbox',
                 label: (
-                  <span className="text-xs">
+                  <span className="">
                     I agree to the Terms of Service and Privacy Policy. I confirm I am at least 18
                     years old.
                   </span>
@@ -82,13 +83,14 @@ const AccountType = ({ control, handleStateChange, state }) => {
                 required: true
               }}
             />
-            <div className="mt-2">
-              <CheckBox
+            <div className="mt-3">
+              <Boolean
                 fieldProp={{
                   control,
-                  name: 'use_anonymous_data',
+                  name: 'settings.use_anonymous_data',
+                  widget: 'checkbox',
                   label: (
-                    <span className="text-xs">
+                    <span className="">
                       Allow TruLink to use anonymised data to improve recommendations and matching.
                     </span>
                   )
@@ -129,9 +131,9 @@ const AccountType = ({ control, handleStateChange, state }) => {
               onClick={() => handleStateChange('social_type', 'google')}
               className={`btn-outlined w-full! gap-2 h-9.5! flex-center ${state.social_type === 'google' && 'border-accent! text-text!'}`}
             >
-              <div className="flex items-center gap-2 min-w-42 ms-8">
+              <div className="flex-center gap-2">
                 <FcGoogle className="text-[18px]" />
-                Continue with Google
+                Google
               </div>
             </button>
             <button
@@ -139,9 +141,9 @@ const AccountType = ({ control, handleStateChange, state }) => {
               onClick={() => handleStateChange('social_type', 'apple')}
               className={`btn-outlined w-full! gap-2 h-9.5! flex-center ${state.social_type === 'apple' && 'border-accent! text-text!'}`}
             >
-              <div className="flex items-center gap-2 min-w-42 ms-8">
+              <div className="flex-center gap-2">
                 <GrApple className="text-[18px]" />
-                Continue with Apple
+                Apple
               </div>
             </button>
             <button
@@ -149,9 +151,9 @@ const AccountType = ({ control, handleStateChange, state }) => {
               onClick={() => handleStateChange('social_type', 'facebook')}
               className={`btn-outlined w-full! gap-2 h-9.5! flex-center ${state.social_type === 'facebook' && 'border-accent! text-text!'}`}
             >
-              <div className="flex items-center gap-2 min-w-42 ms-8">
+              <div className="flex-center gap-2">
                 <FaSquareFacebook className="text-[18px] text-blue-600" />
-                Continue with Facebook
+                Facebook
               </div>
             </button>
           </div>

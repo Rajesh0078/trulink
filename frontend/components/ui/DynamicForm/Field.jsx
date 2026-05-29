@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CheckBox from './Boolean/CheckBox';
+import Boolean from './Boolean/Boolean';
 import Button from './Button/Button';
 import String from './String/String';
 
@@ -9,7 +9,7 @@ const Field = ({ field }) => {
     case 'string':
       return <String fieldProp={field} />;
     case 'boolean':
-      return <CheckBox fieldProp={field} />;
+      return <Boolean fieldProp={field} />;
     case 'button':
       return <Button fieldProps={field} />;
     default:

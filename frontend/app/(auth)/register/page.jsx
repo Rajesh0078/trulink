@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,7 +6,9 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import AccountType from '../_components/AccountType';
+import RegisterConsent from '../_components/RegisterConsent';
 import RegisterDetails from '../_components/RegisterDetails';
+import RegisterProfile from '../_components/RegisterProfile';
 
 import LOGO from '@/public/icons/flame.svg';
 
@@ -18,28 +21,54 @@ const TABS = [
 
 const componentMap = {
   account_type: AccountType,
-  details: RegisterDetails
+  details: RegisterDetails,
+  profile: RegisterProfile,
+  submit: RegisterConsent
 };
 
 const Register = () => {
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      terms_of_use: true,
-      use_anonymous_data: false,
-      display_name: ''
+      display_name: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: ''
     }
   });
+
   const [state, setState] = useState({
     account_type: 'permanent',
     social_type: 'email'
   });
+
   const [activeTab, setActiveTab] = useState('account_type');
   const Component = componentMap[activeTab];
+
   const tabChangeHandler = () => {
     if (activeTab === 'account_type') {
       setActiveTab('details');
     }
+    if (activeTab === 'details') {
+      setActiveTab('profile');
+    }
+    if (activeTab === 'profile') {
+      setActiveTab('submit');
+    }
   };
+
+  const handleBack = () => {
+    if (activeTab === 'details') {
+      setActiveTab('account_type');
+    }
+    if (activeTab === 'profile') {
+      setActiveTab('details');
+    }
+    if (activeTab === 'submit') {
+      setActiveTab('profile');
+    }
+  };
+
   const submitHandler = (payload) => {
     console.log(payload);
   };
@@ -73,9 +102,70 @@ const Register = () => {
     btnLabel = 'Continue to Profile';
   }
 
+  const activeIndex = TABS.findIndex((t) => t.key === activeTab);
+  const progress = ((activeIndex / TABS.length) * 100) + (activeIndex * 8);
+  const completedProgress = activeIndex <= 1 ? 0 : (((activeIndex - 1) / TABS.length) * 100) + ((activeIndex - 1) * 8);
   return (
-    <div className="flex h-full">
-      <div className="w-[30%] min-w-100 px-[3%] py-16 bg-surface border-r border-border flex flex-col justify-between">
+    <div className="flex flex-col xl:flex-row h-full pb-6 sm:pb-0">
+      {/* Mobile View Stepper */}
+      <div className="xl:hidden px-[4%] p-6">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-1">
+            <Image src={LOGO} alt="Flame" height={26} />
+            <span className="colored-text mt-1">TruLink</span>
+          </Link>
+        </div>
+
+        <div className="mt-10">
+          <div className="relative w-full">
+            {/* Progress Bar */}
+            <div className="h-px bg-white/20 rounded-full overflow-hidden ">
+              <div
+                className="h-full bg-accent transition-all duration-300"
+                style={{
+                  width: `${progress}%`
+                }}
+              />
+            </div>
+            <div className="h-px bg-white/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-green-400 transition-all duration-300"
+                style={{
+                  width: `${completedProgress}%`
+                }}
+              />
+            </div>
+
+            {/* Step Dots */}
+            <div className="flex items-center justify-between -mt-4">
+              {TABS.map((tab, index) => {
+                const activeIndex = TABS.findIndex((t) => t.key === activeTab);
+                const isCompleted = index < activeIndex;
+                const isActive = index === activeIndex;
+
+                return (
+                  <div
+                    key={tab.id}
+                    className={`
+                h-8 w-8 rounded-full flex items-center justify-center text-xs font-medium
+                transition-all ${isActive
+                        ? 'bg-accent text-white'
+                        : isCompleted
+                          ? 'bg-green-500 text-white'
+                          : 'bg-surface border border-border text-text-2'
+                      }
+              `}
+                  >
+                    {tab.id}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Web View Stepper*/}
+      <div className="w-[30%] min-h-dvh min-w-100 px-[3%] py-16 bg-surface border-r border-border hidden xl:flex flex-col justify-between">
         <div>
           <Link href={'/'} className="flex items-center gap-1 w-full">
             <div>
@@ -84,9 +174,9 @@ const Register = () => {
             <span className="text-2xl colored-text mt-1">TruLink</span>
           </Link>
           <div className="mt-10 relative">
-            <div className="absolute left-6 top-0 h-full w-0.5 bg-border" />
+            <div className="absolute left-5 top-0 h-full w-0.5 bg-border" />
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-8">
               {TABS.map((tab, index) => {
                 const isActive = tab.key === activeTab;
                 const isCompleted = index < TABS.findIndex((t) => t.key === activeTab);
@@ -104,12 +194,12 @@ const Register = () => {
                     {/* Step Circle */}
                     <div
                       className={`
-                        relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2
+                        relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2
                         transition-all duration-300 text-2xl
                         ${className}
                       `}
                     >
-                      <span className="mb-px">{tab.id}</span>
+                      <span className="mb-px text-[18px]">{tab.id}</span>
                     </div>
 
                     {/* Content */}
@@ -127,19 +217,19 @@ const Register = () => {
         </div>
         <div className="border-t border-border-2 flex gap-2 py-4 text-text-2 text-sm">
           Already have an account?
-          <Link href={'/login'} className="text-accent-3 text-[15px]">
+          <Link href={'/login'} className="text-accent-2 font-medium text-[15px]">
             Sign in
           </Link>
         </div>
       </div>
-      <form onSubmit={handleSubmit(submitHandler)} className="py-16 px-[4%] w-full">
+      <form onSubmit={handleSubmit(submitHandler)} className="xl:py-16 px-[4%] w-full">
         <Component control={control} handleStateChange={handleStateChange} state={state} />
-        <div className="flex gap-4 w-full">
+        <div className="flex flex-wrap sm:flex-nowrap gap-y-3 gap-x-4 w-full mt-5">
           {activeTab !== 'account_type' && (
             <button
-              onClick={() => setActiveTab('account_type')}
+              onClick={handleBack}
               type={activeTab === 'submit' ? 'submit' : 'button'}
-              className="btn-outlined w-full mt-5 h-9.5! text-[16px]!"
+              className="btn-outlined w-full h-9! sm:h-9.5! sm:text-[16px]!"
             >
               Back
             </button>
@@ -147,7 +237,7 @@ const Register = () => {
           <button
             onClick={tabChangeHandler}
             type={activeTab === 'submit' ? 'submit' : 'button'}
-            className="btn-primary w-full mt-5 h-9.5! text-[16px]!"
+            className="btn-primary w-full h-9! sm:h-9.5! sm:text-[16px]!"
           >
             {btnLabel}
           </button>

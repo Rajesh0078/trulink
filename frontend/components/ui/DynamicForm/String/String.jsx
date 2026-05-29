@@ -19,9 +19,9 @@ const String = ({ fieldProp }) => {
       }}
       render={({ field, fieldState }) => {
         return (
-          <div className="relative text-start">
+          <div className="relative text-start w-full">
             {fieldProp.label && (
-              <label htmlFor={fieldProp.id} className="capitalize flex text-text-3 mb-1 text-sm">
+              <label htmlFor={fieldProp.id} className="uppercase flex text-text-3 mb-1 text-sm">
                 <div className="text-red-600 me-1">{fieldProp.required && '*'}</div>
                 {fieldProp.label}
               </label>
@@ -38,7 +38,7 @@ const String = ({ fieldProp }) => {
                 rows={6}
                 spellCheck={false}
                 disabled={fieldProp.disabled}
-                className={`min-h-16 ${fieldState.error ? 'border-red-400! focus:ring-0! shake' : 'border-border'}`}
+                className={`min-h-16 ${fieldProp.className} ${fieldState.error ? 'border-red-400! focus:ring-0! shake' : 'border-border'}`}
               />
             ) : (
               <div className="relative">
