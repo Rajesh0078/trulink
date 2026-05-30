@@ -7,26 +7,32 @@ import { toast } from 'react-toastify';
 import DynamicFrom from '@/components/ui/DynamicForm/DynamicFrom';
 import { guestAction } from '@/lib/actions/authActions';
 
+const GENDER_OPTIONS = [
+  { label: 'Male', key: 'male' },
+  { label: 'Female', key: 'female' },
+  { label: 'Prefer not to say', key: 'others' }
+];
+
 const guestSchema = [
   {
     id: 1,
-    name: 'first_name',
-    label: 'First Name',
+    name: 'display_name',
+    label: 'Display Name',
     type: 'string',
-    colSpan: 6,
+    colSpan: 12,
     required: true,
-    placeholder: 'Enter Full Name',
+    placeholder: 'How should others see you?',
     widget: 'text'
   },
   {
     id: 2,
-    name: 'last_name',
-    label: 'Last Name',
-    type: 'string',
-    colSpan: 6,
-    required: false,
+    name: 'gender',
+    label: 'Gender',
+    type: 'select',
+    colSpan: 12,
+    required: true,
     placeholder: 'Enter Last Name',
-    widget: 'text'
+    options: GENDER_OPTIONS
   }
 ];
 
@@ -55,7 +61,7 @@ const GuestCard = () => {
       };
     }
     const response = await guestAction(payload);
-    if (response.success) {
+    if (response?.success) {
       toast.success(response.message);
       navigate.push('/discover');
     } else {
@@ -71,8 +77,8 @@ const GuestCard = () => {
           </div>
 
           <div className="text-start">
-            <p className="font-medium text-white text-sm sm:text-[17px]">Anonymous User</p>
-            <p className="text-xs sm:text-sm text-text-2">“Hey 👋 I’m here to chat with anyone!”</p>
+            <p className="font-medium text-text-2 text-sm sm:text-[17px]">Anonymous User</p>
+            <p className="text-xs sm:text-sm text-text-3">“Hey 👋 I’m here to chat with anyone!”</p>
           </div>
         </div>
       </div>

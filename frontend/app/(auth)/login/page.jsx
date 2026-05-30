@@ -74,7 +74,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-full flex z-100">
+    <div className="w-full h-dvh flex z-100">
       <div className="h-full w-1/2 bg-surface border-r border-border hidden lg:flex-between py-22 flex-col px-[5%]">
         <Link href={'/'} className="flex items-center gap-1 w-full">
           <div>

@@ -21,7 +21,7 @@ const DynamicFrom = ({ defaultValues, submitHandler, schema, submitLabel }) => {
   return (
     <form
       onSubmit={handleSubmit(submitHandler)}
-      className="grid grid-cols-12 gap-y-3 sm:gap-y-4 gap-x-5"
+      className="grid grid-cols-12 gap-y-3 sm:gap-y-4 gap-x-5 items-center"
     >
       {schema.map((field, index) => {
         const canSkipResponsive = field.type === 'boolean' || field.type === 'button';

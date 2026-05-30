@@ -33,7 +33,11 @@ const Register = () => {
       first_name: '',
       last_name: '',
       email: '',
-      password: ''
+      password: '',
+      settings: {
+        terms_of_use: true,
+        use_anonymous_data: false
+      }
     }
   });
 
@@ -47,6 +51,7 @@ const Register = () => {
 
   const tabChangeHandler = () => {
     if (activeTab === 'account_type') {
+      if (state.account_type === 'guest') { return; }
       setActiveTab('details');
     }
     if (activeTab === 'details') {
@@ -81,8 +86,10 @@ const Register = () => {
   };
 
   let btnLabel = 'Continue';
+  let btnType = 'button';
   if (state.account_type === 'guest') {
     btnLabel = 'Continue as Anonymous';
+    btnType = 'submit';
   }
   if (state.account_type === 'permanent') {
     if (state.social_type === 'email') {
@@ -174,7 +181,11 @@ const Register = () => {
             <span className="text-2xl colored-text mt-1">TruLink</span>
           </Link>
           <div className="mt-10 relative">
-            <div className="absolute left-5 top-0 h-full w-0.5 bg-border" />
+            <div>
+              <div className="absolute left-5 top-0 h-full w-0.5 bg-border" />
+              <div className="absolute left-5 top-0 w-0.5 bg-accent" style={{ height: `${progress}%` }} />
+              <div className="absolute left-5 top-0 w-0.5 bg-green-400" style={{ height: `${completedProgress}%` }} />
+            </div>
 
             <div className="flex flex-col gap-8">
               {TABS.map((tab, index) => {
@@ -236,8 +247,8 @@ const Register = () => {
           )}
           <button
             onClick={tabChangeHandler}
-            type={activeTab === 'submit' ? 'submit' : 'button'}
-            className="btn-primary w-full h-9! sm:h-9.5! sm:text-[16px]!"
+            type={btnType}
+            className="btn-primary w-full h-9! sm:h-9.5! sm:text-[15px]!"
           >
             {btnLabel}
           </button>
