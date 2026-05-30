@@ -68,7 +68,7 @@ const AccountType = ({ control, handleStateChange, state }) => {
               This is the only name others will see. You can change it anytime.
             </p>
           </div>
-          <div className="mt-6 px-px mb-5">
+          <div className="mt-4 px-px mb-5">
             <Boolean
               fieldProp={{
                 control,
@@ -76,7 +76,7 @@ const AccountType = ({ control, handleStateChange, state }) => {
                 widget: 'checkbox',
                 label: (
                   <span className="">
-                    I agree to the Terms of Service and Privacy Policy. I confirm I am at least 18
+                    I agree to the terms of service and privacy policy. I confirm i am at least 18
                     years old.
                   </span>
                 ),
@@ -91,7 +91,7 @@ const AccountType = ({ control, handleStateChange, state }) => {
                   widget: 'checkbox',
                   label: (
                     <span className="">
-                      Allow TruLink to use anonymised data to improve recommendations and matching.
+                      Allow truLink to use anonymised data to improve recommendations and matching.
                     </span>
                   )
                 }}

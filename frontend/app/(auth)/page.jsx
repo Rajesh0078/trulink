@@ -5,8 +5,8 @@ import GuestCard from './_components/GuestCard';
 
 const page = () => {
   return (
-    <>
-      <header className="flex-between h-16 py-0 px-[4%] md:px-[7%] backdrop-blur-sm z-50 border-b border-border-2">
+    <div className="overflow-x-auto">
+      <header className="flex-between w-full h-16 py-0 px-[4%] md:px-[7%] backdrop-blur-md z-10 border-b border-border-2">
         <Link href="/" className="colored-text">
           <h1>TruLink</h1>
         </Link>
@@ -39,7 +39,7 @@ const page = () => {
           <p className="text-xs text-text-2">Safe • Anonymous • Real Conversations</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

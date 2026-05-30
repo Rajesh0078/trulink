@@ -1,8 +1,8 @@
 const { z } = require("zod");
 
 const guestSchema = z.object({
-  first_name: z.string().trim().min(2, "First name is required!").max(100),
-  last_name: z.string().trim().optional(),
+  display_name: z.string().trim().min(2, "Display name is required!").max(100),
+  gender: z.string().trim().min(2, "Gender is required!").max(100),
   location: z
     .object({
       type: z.literal("Point"),
@@ -27,7 +27,8 @@ const loginSchema = z.object({
 const registerSchema = z
   .object({
     username: z.string().trim().min(3, "Username is required"),
-    first_name: z.string().trim().min(3, "First name is required"),
+    gender: z.string().trim().min(3, "Gender is required"),
+    first_name: z.string().trim(),
     last_name: z.string().trim(),
 
     password: z

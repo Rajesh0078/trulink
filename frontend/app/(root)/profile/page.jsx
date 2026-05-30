@@ -15,10 +15,10 @@ const Profile = async () => {
       <div className="bg-gray-800 w-full h-24 sm:h-40 border-b border-border relative -z-10"></div>
       <button
         onClick={logoutAction}
-        className="btn-outlined text-white! cursor-pointer flex-center gap-2 absolute right-4 top-4 px-3"
+        className="btn-outlined bg-red-600/10 absolute top-4 right-4 cursor-pointer flex-center gap-2 border-red-600/60"
       >
-        <IoLogOut className="text-xl mb-px" />
-        <span>Logout</span>
+        <IoLogOut className="text-xl mb-px text-red-600" />
+        <span className="text-red-500">Logout</span>
       </button>
       <div>
         <Avatar

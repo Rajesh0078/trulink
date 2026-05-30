@@ -77,8 +77,6 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       default: null,
-      minlength: [3, "First name must be at least 2 characters"],
-      required: [true, "First name is required"],
     },
 
     last_name: {
@@ -91,6 +89,7 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       default: null,
+      required: [true, "Display name is required"],
     },
 
     phone: {
@@ -133,6 +132,13 @@ const UserSchema = new Schema(
         },
         "Password is required",
       ],
+    },
+
+    gender: {
+      type: String,
+      enum: ["male", "female", "others"],
+      default: null,
+      required: [true, "Gender is required"],
     },
 
     avatar: {

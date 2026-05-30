@@ -25,7 +25,7 @@ const Boolean = ({ fieldProp }) => {
                 {fieldProp.label && (
                   <label
                     htmlFor={fieldProp.name}
-                    className="capitalize text-text-3 text-[13px] cursor-pointer flex items-center select-none -mt-0.5"
+                    className="text-text-3 text-[13px] cursor-pointer flex items-center select-none"
                   >
                     {/* {fieldProp.required && <span className="text-red-600 me-1">*</span>} */}
 
@@ -52,10 +52,10 @@ const Boolean = ({ fieldProp }) => {
                   type="button"
                   id={fieldProp.name}
                   onClick={() => field.onChange(!field.value)}
-                  className={`relative  border border-border flex-center h-6 min-w-11 rounded-full ${field.value ? 'bg-accent' : 'bg-surface-2'}`}
+                  className={`relative  border border-border flex-center h-6 min-w-11 rounded-full transition-colors duration-400 ${field.value ? 'bg-accent' : 'bg-surface-2'}`}
                 >
                   <span
-                    className={`h-4 w-4 transform rounded-full transition-transform duration-400 bg-white/80   ${field.value ? '-translate-x-2.25' : 'translate-x-2.25'}`}
+                    className={`h-4 w-4 transform rounded-full transition-transform duration-300 bg-white/80 ${field.value ? 'translate-x-2.25' : '-translate-x-2.25'}`}
                   />
                 </button>
               </div>
