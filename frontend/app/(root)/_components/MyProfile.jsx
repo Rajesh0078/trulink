@@ -52,7 +52,7 @@ const MyProfile = ({ user }) => {
   return (
     <div className="py-4 px-6 sm:mt-1 w-full">
       <h1 className="text-[20px] sm:text-2xl sm:font-bold capitalize text-center sm:text-start">
-        {user?.full_name || user?.first_name || 'User'}
+        {user?.full_name || user?.display_name || 'User'}
       </h1>
       <div className="text-text-2 text-sm sm:text-[16px] flex gap-2 my-1 justify-center sm:justify-start">
         <span className="text-blue-400">@{user?.username || 'No username'}</span>
@@ -111,7 +111,7 @@ const MyProfile = ({ user }) => {
             <Link
               prefetch
               href={'/profile/edit'}
-              className="btn-outlined flex-center gap-2 absolute right-4 top-4 px-1 sm:px-2"
+              className="btn-outlined flex-center gap-2 absolute right-4 top-4 px-2"
             >
               <BiSolidPencil className="text-[18px]" />
               <span className="inline">Edit Profile</span>
@@ -119,7 +119,7 @@ const MyProfile = ({ user }) => {
           </div>
           <div className="flex mt-6 gap-3 text-sm border-b border-border-2 pb-4 flex-wrap">
             <div className="flex flex-col gap-3 flex-1">
-              <Info info={user?.full_name} title={'Display Name'} />
+              <Info info={user?.display_name} title={'Display Name'} />
               <Info info={user?.email} title={'Email'} />
               <Info info={formatDate(user?.createdAt)} title={'Joined'} />
             </div>
@@ -137,12 +137,12 @@ const MyProfile = ({ user }) => {
         <div className="p-4 card flex-1 max-w-none!">
           <div className="flex-between">
             <div className="text-lg font-semibold">Recent Activity</div>
-            <button className="btn-outlined flex-center gap-2 absolute right-4 top-4 px-1 sm:px-2">
+            <button className="btn-outlined flex-center gap-2 absolute right-4 top-4 px-2">
               <MdHistory className="text-[18px]" />
               <span className="inline">View All</span>
             </button>
           </div>
-          <div className="w-full mt-6"></div>
+          <div className="w-full mt-6 p-5"></div>
         </div>
       </div>
     </div>

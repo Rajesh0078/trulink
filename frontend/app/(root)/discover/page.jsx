@@ -1,85 +1,49 @@
 import React from 'react';
+import { FaMapLocation } from 'react-icons/fa6';
+import { IoLogOut } from 'react-icons/io5';
 
-import Avatar from '@/components/ui/Avatar/Avatar';
-import { discoverUsers } from '@/lib/actions/userActions';
+import DiscoverPage from './DiscoverPage';
 
-// const USER_COLORS = [
-//   'bg-red-500',
-//   'bg-blue-500',
-//   'bg-green-500',
-//   'bg-purple-500',
-//   'bg-pink-500',
-//   'bg-orange-500',
-//   'bg-cyan-500',
-//   'bg-yellow-500',
-//   'bg-indigo-500',
-//   'bg-emerald-500'
-// ];
+import { logoutAction } from '@/lib/actions/authActions';
+import { discoverUsers, getProfileAction } from '@/lib/actions/userActions';
 
-const Discover = async () => {
-  await discoverUsers({ distance: 50 });
+const page = async () => {
+  const users = await discoverUsers({ distance: 5 });
+  const userRes = await getProfileAction();
+  const user = userRes?.data || {};
   return (
-    <section className="page">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-3">
-        Discover <span className="colored-text text-2xl sm:text-3xl ">Anonymous</span> Connections
-      </h1>
-      <div className="relative h-[calc(100%-100px)] mt-10 w-full overflow-hidden flex-center">
-        {/* Radar Rings */}
-        <div
-          className="absolute h-80 w-80 rounded-full border border-accent/50 animate-ping"
-          style={{
-            animationDuration: '2s'
-          }}
-        ></div>
-
-        <div
-          className="absolute h-64 w-64 rounded-full border border-accent/50 animate-pulse"
-          style={{
-            animationDuration: '2s'
-          }}
-        ></div>
-
-        <div
-          className="absolute h-96 w-96 rounded-full border border-accent/40 animate-pulse"
-          style={{
-            animationDuration: '3s'
-          }}
-        ></div>
-
-        <div
-          className="absolute h-126 w-126 rounded-full border border-accent/20 animate-pulse"
-          style={{
-            animationDuration: '3s'
-          }}
-        ></div>
-
-        <div
-          className="absolute h-150 w-150 rounded-full border border-accent/20 animate-pulse"
-          style={{
-            animationDuration: '3s'
-          }}
-        ></div>
-
-        {/* Rotating Radar Beam */}
-        <div className="absolute h-146 w-146 rounded-full overflow-hidden">
-          <div
-            className="absolute inset-0 animate-spin"
-            style={{
-              animationDuration: '1.5s'
-            }}
-          >
-            <div className="absolute top-1/2 left-1/2 h-55 w-55 -translate-x-1/2 -translate-y-full origin-bottom bg-linear-to-t from-accent/60 to-transparent blur-3xl rotate-45"></div>
-          </div>
+    <section className="w-full">
+      {/* Header */}
+      <div className="flex-between h-15 border-b border-border-2 px-4 sm:px-8 bg-surface/50">
+        <div className="text-[20px] font-extrabold">
+          Discover <span className="colored-text hidden xl:inline">Anonymous</span>
+          <span className="hidden xl:inline"> users</span>
         </div>
-
-        {/* User Avatar */}
-        <Avatar
-          className="min-h-12 min-w-12 flex-center sm:h-30 sm:w-30 custom-gradient"
-          labelClass="text-4xl"
-        />
+        <div className="flex gap-4">
+          <div className="text-text-2 flex-center gap-2 text-sm sm:text-[16px]">
+            <FaMapLocation />
+            <div>
+              {user.address?.city ? (
+                <span>
+                  {user?.address?.city}, {user?.address?.country}
+                </span>
+              ) : (
+                <span>Update location</span>
+              )}
+            </div>
+          </div>
+          <button
+            onClick={logoutAction}
+            className="btn-outlined px-2 sm:px-4 cursor-pointer flex-center gap-2 bg-red-600/10 border-red-600/60"
+          >
+            <IoLogOut className="text-xl mb-px text-red-600" />
+            <span className="text-red-500 hidden xl:inline">Logout</span>
+          </button>
+        </div>
       </div>
+      <DiscoverPage user={user} users={users?.data || []} />
     </section>
   );
 };
 
-export default Discover;
+export default page;

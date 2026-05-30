@@ -30,7 +30,7 @@ const Sidebar = () => {
     <>
       {/* Mobile View */}
       <div className="flex-center sm:hidden fixed bottom-0 w-full z-1000">
-        <div className="bg-surface-2 border-t shadow border-border-2 backdrop-blur-3xl h-13 w-full flex justify-around items-center">
+        <div className="bg-surface/30 border-t shadow border-border-2 backdrop-blur-3xl h-13 w-full flex justify-around items-center">
           {navItems.map(({ href, icon: Icon }) => {
             const active = pathname === href;
 
@@ -38,9 +38,7 @@ const Sidebar = () => {
               <Link
                 key={href}
                 href={href}
-                className={`h-full flex-center border-b-2 transition-colors ${
-                  active ? 'text-accent-3 border-accent-3' : 'text-text-2 border-transparent'
-                }`}
+                className={`h-full flex-center border-b-2 transition-colors ${active ? 'text-accent-3 border-accent-3' : 'text-text-2 border-transparent'}`}
               >
                 <Icon className="text-2xl" />
               </Link>
@@ -72,9 +70,7 @@ const Sidebar = () => {
                 <Link
                   key={href}
                   href={href}
-                  className={`h-full w-full flex-center border-l-2 transition-colors ${
-                    active ? 'text-accent-3 border-accent-3' : 'text-text-2 border-transparent'
-                  }`}
+                  className={`h-full w-full flex-center border-l-2 transition-colors ${active ? 'text-accent-3 border-accent-3' : 'text-text-2 border-transparent'}`}
                 >
                   <Icon className="text-[22px]" />
                 </Link>
@@ -82,11 +78,8 @@ const Sidebar = () => {
             })}
             <Link
               href={'/notifications'}
-              className={`h-full w-full flex-center border-l-2 transition-colors ${
-                pathname === '/notifications'
-                  ? 'text-accent-3 border-accent-3'
-                  : 'text-text-2 border-transparent'
-              }`}
+              className={`h-full w-full flex-center border-l-2 transition-colors 
+              ${pathname === '/notifications' ? 'text-accent-3 border-accent-3' : 'text-text-2 border-transparent'}`}
             >
               <FaBell className="text-[20px]" />
             </Link>
