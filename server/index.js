@@ -11,6 +11,7 @@ async function bootstrap() {
   await initSocket(server);
 
   server.listen(process.env.PORT || 8080, () => {
+    console.log("testing")
     console.log(`Server is running on port ${process.env.PORT || 8080}`);
   });
 }
