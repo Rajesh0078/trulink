@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import Field from './Field';
 
-import { colSpanMap, colSpanMapRes } from '@/lib/utils/helpers';
+import { colSpanMap, colSpanMapRes } from '@/lib/utils/constants';
 
 const DynamicFrom = ({ defaultValues, submitHandler, schema, submitLabel }) => {
   const { handleSubmit, control, formState, reset } = useForm({

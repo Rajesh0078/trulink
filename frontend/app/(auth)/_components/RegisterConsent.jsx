@@ -2,7 +2,7 @@ import React from 'react';
 
 import TitleCard from '@/components/common/TitleCard';
 import Field from '@/components/ui/DynamicForm/Field';
-import { colSpanMap } from '@/lib/utils/helpers';
+import { colSpanMap } from '@/lib/utils/constants';
 
 const settingsSchema = [
   {
@@ -71,7 +71,7 @@ const consentSchema = [
   }
 ];
 
-const RegisterConsent = ({ control }) => {
+const RegisterConsent = ({ control, handlePrev }) => {
   return (
     <div className="w-full">
       <TitleCard
@@ -98,6 +98,18 @@ const RegisterConsent = ({ control }) => {
             </div>
           );
         })}
+      </div>
+      <div className="mt-5 md:mt-6 w-full flex gap-3">
+        <button
+          type="button"
+          className="btn-outlined bg-surface w-full h-9! sm:h-9.5! sm:text-[15px]!"
+          onClick={handlePrev}
+        >
+          Back
+        </button>
+        <button type="submit" className="btn-primary w-full h-9! sm:h-9.5! sm:text-[15px]!">
+          Create Account
+        </button>
       </div>
     </div>
   );
