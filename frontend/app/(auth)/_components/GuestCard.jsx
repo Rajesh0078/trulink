@@ -6,12 +6,7 @@ import { toast } from 'react-toastify';
 
 import DynamicFrom from '@/components/ui/DynamicForm/DynamicFrom';
 import { guestAction } from '@/lib/actions/authActions';
-
-const GENDER_OPTIONS = [
-  { label: 'Male', key: 'male' },
-  { label: 'Female', key: 'female' },
-  { label: 'Prefer not to say', key: 'others' }
-];
+import { GENDER_OPTIONS } from '@/lib/utils/constants';
 
 const guestSchema = [
   {

@@ -41,7 +41,7 @@ const Selection = ({ fieldProp }) => {
               <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="custom-select w-full p-3 rounded flex justify-between items-center border border-border"
+                className={`custom-select w-full p-3 rounded flex justify-between items-center border border-border ${fieldState.error && 'border-red-400 shake'}`}
               >
                 <span className={`${field.value ? 'text-white' : 'text-text-3'}`}>
                   {selectedVal?.label || 'Select an option'}

@@ -27,10 +27,10 @@ const loginSchema = z.object({
 const registerSchema = z
   .object({
     username: z.string().trim().min(3, "Username is required"),
+    display_name: z.string().trim().min(3, "Display name is required"),
     gender: z.string().trim().min(3, "Gender is required"),
-    first_name: z.string().trim(),
-    last_name: z.string().trim(),
-
+    first_name: z.string().trim().optional(),
+    last_name: z.string().trim().optional(),
     password: z
       .string()
       .trim()
