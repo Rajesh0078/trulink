@@ -108,7 +108,7 @@ const Page = () => {
 
   const RenderedComponent = componentMap[state.currentTab];
   return (
-    <div className="h-full flex flex-col xl:flex-row">
+    <div className="h-full overflow-y-auto flex flex-col xl:flex-row">
       <RegisterSteps currentTab={state.currentTab} />
       <div className="w-full h-full px-4 sm:px-10 md:px-16 xl:py-16 xl:px-[10%]">
         <form onSubmit={handleSubmit(submitHandler)}>
