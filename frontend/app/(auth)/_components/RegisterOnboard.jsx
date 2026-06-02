@@ -7,7 +7,7 @@ import { GrApple } from 'react-icons/gr';
 
 import TitleCard from '@/components/common/TitleCard';
 import Field from '@/components/ui/DynamicForm/Field';
-import { colSpanMap } from '@/lib/utils/constants';
+import { colSpanMapRes } from '@/lib/utils/constants';
 
 const onBoardSchema = [
   {
@@ -61,7 +61,7 @@ const RegisterOnboard = ({ control, handleNext }) => {
       />
       <div className="grid grid-cols-12 gap-y-3 sm:gap-y-4 gap-x-5 mt-4">
         {onBoardSchema.map((field) => (
-          <div key={field.id} className={`${colSpanMap[field.colSpan || 12]}`}>
+          <div key={field.id} className={`${colSpanMapRes[field.colSpan || 12]}`}>
             <Field field={{ ...field, control: control }} />
           </div>
         ))}

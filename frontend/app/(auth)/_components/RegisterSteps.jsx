@@ -38,7 +38,7 @@ const RegisterSteps = ({ currentTab }) => {
     activeIndex <= 1 ? 0 : ((activeIndex - 1) / TABS.length) * 100 + (activeIndex - 1) * 16;
   return (
     <>
-      <div className="xl:hidden px-4 sm:px-10 md:px-16 py-6 w-full">
+      <div className="xl:hidden px-4 sm:px-10 md:px-16 pt-6 pb-3 w-full">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-1">
             <Image src={LOGO} alt="Flame" height={30} />
@@ -79,12 +79,12 @@ const RegisterSteps = ({ currentTab }) => {
                   ? activeClass
                   : isCompleted
                     ? completedClass
-                    : 'bg-surface border-border text-text-3';
+                    : 'bg-surface border-border text-text-2 border-border-2 border';
 
                 return (
                   <div
                     key={tab.id}
-                    className={` h-8 w-8 rounded-full flex items-center justify-center text-xs font-medium transition-all ${className}`}
+                    className={`h-8 w-8 rounded-full flex items-center justify-center text-sm font-medium transition-all ${className}`}
                   >
                     {tab.id}
                   </div>
@@ -127,7 +127,7 @@ const RegisterSteps = ({ currentTab }) => {
                   ? activeClass
                   : isCompleted
                     ? completedClass
-                    : 'bg-surface border-border text-text-3';
+                    : 'bg-surface border-border text-text-2';
 
                 return (
                   <div key={tab.id} className="relative flex items-start gap-4 text-left">
