@@ -207,7 +207,12 @@ const UserSchema = new Schema(
         enum: ["everyone", "friends", "none"],
         default: "everyone",
       },
-      show_online: { type: Boolean, default: true },
+      is_online: { type: Boolean, default: true },
+      terms_of_use: { type: Boolean, default: true },
+      use_anonymous_data: { type: Boolean, default: true },
+      subscribe_updates: { type: Boolean, default: true },
+      show_location: { type: Boolean, default: true },
+      appear_in_search: { type: Boolean, default: true },
     },
 
     is_deleted: {

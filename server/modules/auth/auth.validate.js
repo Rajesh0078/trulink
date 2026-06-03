@@ -42,6 +42,18 @@ const registerSchema = z
     email: z.string().trim().email("Invalid email").optional(),
 
     phone: z.string().trim().optional(),
+    interests: z.array(z.string()).optional(),
+    settings: z
+      .object({
+        terms_of_use: z.boolean(),
+        use_anonymous_data: z.boolean(),
+        subscribe_updates: z.boolean(),
+        show_location: z.boolean(),
+        appear_in_search: z.boolean(),
+        is_online: z.boolean(),
+        notifications: z.boolean(),
+      })
+      .optional(),
   })
   .refine((data) => data.email || data.phone, {
     message: "Either phone or email is required",

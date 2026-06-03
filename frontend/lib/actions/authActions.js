@@ -30,6 +30,31 @@ const guestAction = async (data) => {
   }
 };
 
+const registerRequest = async (data) => {
+  const res = await request('/auth/register/request', {
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+  return res;
+};
+
+const registerVerify = async (data) => {
+  const res = await request('/auth/register/verify', {
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+  if (res && res.success) {
+    const cookieStore = await cookies();
+    await cookieStore.set({
+      name: 'TRULINK_ACCESS_TOKEN',
+      value: res?.data?.accessToken,
+      httpOnly: true,
+      path: '/'
+    });
+  }
+  return res;
+};
+
 const loginAction = async (data) => {
   const cookieStore = await cookies();
   const res = await request('/auth/login', {
@@ -53,4 +78,4 @@ const logoutAction = async () => {
   redirect('/login');
 };
 
-export { guestAction, loginAction, logoutAction };
+export { guestAction, loginAction, logoutAction, registerRequest, registerVerify };

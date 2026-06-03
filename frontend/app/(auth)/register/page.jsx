@@ -2,12 +2,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import z from 'zod';
 
 import RegisterConsent from '../_components/RegisterConsent';
 import RegisterOnboard from '../_components/RegisterOnboard';
+import RegisterOtp from '../_components/RegisterOtp';
 import RegisterProfileV1 from '../_components/RegisterProfileV1';
 import RegisterSteps from '../_components/RegisterSteps';
+import RegisterSuccess from '../_components/RegisterSuccess';
+
+import { registerRequest } from '@/lib/actions/authActions';
 
 const DEFAULT_VALUES = {
   account_type: 'permanent',
@@ -19,14 +24,22 @@ const DEFAULT_VALUES = {
   username: '',
   interests: [],
   settings: {
-    terms_of_use: true
+    terms_of_use: true,
+    use_anonymous_data: false,
+    subscribe_updates: true,
+    show_location: true,
+    appear_in_search: true,
+    is_online: true,
+    notifications: true
   }
 };
 
 const componentMap = {
   1: RegisterOnboard,
   2: RegisterProfileV1,
-  3: RegisterConsent
+  3: RegisterConsent,
+  4: RegisterOtp,
+  5: RegisterSuccess
 };
 
 const STEP_FIELDS = {
@@ -38,7 +51,12 @@ const STEP_FIELDS = {
 const registerSchema = z
   .object({
     email: z.email(),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
+    password: z
+      .string()
+      .regex(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character'
+      ),
     c_password: z.string(),
     username: z.string().min(3, 'Username must be at least 3 characters'),
     display_name: z.string().min(2, 'Display name is required'),
@@ -62,7 +80,7 @@ const registerSchema = z
   });
 
 const Page = () => {
-  const { control, handleSubmit, trigger, watch, setValue } = useForm({
+  const { control, handleSubmit, trigger, watch, setValue, formState, getValues } = useForm({
     defaultValues: DEFAULT_VALUES,
     shouldUnregister: false,
     resolver: zodResolver(registerSchema)
@@ -78,8 +96,13 @@ const Page = () => {
     }));
   };
 
-  const submitHandler = (data) => {
-    console.log(data);
+  const submitHandler = async (data) => {
+    const res = await registerRequest(data);
+    if (res && res.error) {
+      toast.error(res.error);
+      return;
+    }
+    moveStep(4);
   };
 
   const handleNext = async () => {
@@ -119,6 +142,8 @@ const Page = () => {
             handlePrev={handlePrev}
             watch={watch}
             setValue={setValue}
+            formState={formState}
+            getValues={getValues}
           />
         </form>
       </div>
