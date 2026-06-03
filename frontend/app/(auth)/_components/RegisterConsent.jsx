@@ -71,9 +71,9 @@ const consentSchema = [
   }
 ];
 
-const RegisterConsent = ({ control, handlePrev }) => {
+const RegisterConsent = ({ control, handlePrev, formState }) => {
   return (
-    <div className="w-full">
+    <div className="w-full pb-6">
       <TitleCard
         title="Privacy & Consent"
         desc="Control who can see your profile and how TruLink uses your data."
@@ -104,11 +104,23 @@ const RegisterConsent = ({ control, handlePrev }) => {
           type="button"
           className="btn-outlined bg-surface w-full h-9! sm:h-9.5! sm:text-[15px]!"
           onClick={handlePrev}
+          disabled={formState.isSubmitting}
         >
           Back
         </button>
-        <button type="submit" className="btn-primary w-full h-9! sm:h-9.5! sm:text-[15px]!">
-          Create Account
+        <button
+          disabled={formState.isSubmitting}
+          type="submit"
+          className="btn-primary w-full h-9! sm:h-9.5! sm:text-[15px]!"
+        >
+          {formState.isSubmitting ? (
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              Loading...
+            </div>
+          ) : (
+            'Create Account'
+          )}
         </button>
       </div>
     </div>

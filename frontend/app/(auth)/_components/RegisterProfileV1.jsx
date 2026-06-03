@@ -51,7 +51,7 @@ const profileSchema = [
 const RegisterProfileV1 = ({ control, watch, setValue, handleNext, handlePrev }) => {
   const selectedInterests = watch('interests') || [];
   return (
-    <div className="w-full mt-2 xl:mt-0">
+    <div className="w-full mt-2 xl:mt-0 pb-6">
       <TitleCard
         title="Set up your profile"
         desc="Add your name and a few interests so others can find and connect with you."

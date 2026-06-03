@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { BsStars } from 'react-icons/bs';
 import { HiEnvelope } from 'react-icons/hi2';
-import { MdSecurity } from 'react-icons/md';
+import { MdPrivacyTip, MdSecurity } from 'react-icons/md';
 import { TiUser } from 'react-icons/ti';
 
 import LOGO from '@/public/icons/flame.svg';
@@ -27,15 +28,31 @@ const TABS = [
     title: 'Privacy & consent',
     desc: 'Control your visibility',
     key: 'submit',
+    icon: MdPrivacyTip
+  },
+  {
+    id: 4,
+    title: 'Verify identity',
+    // eslint-disable-next-line quotes
+    desc: "Confirm it's really you",
+    key: 'submit',
     icon: MdSecurity
+  },
+  {
+    id: 5,
+    // eslint-disable-next-line quotes
+    title: "You're in!",
+    desc: 'Start exploring TruLink',
+    key: 'submit',
+    icon: BsStars
   }
 ];
 
 const RegisterSteps = ({ currentTab }) => {
   const activeIndex = TABS.findIndex((t) => t.id === currentTab);
-  const progress = (activeIndex / TABS.length) * 100 + activeIndex * 16;
+  const progress = (activeIndex / TABS.length) * 100 + activeIndex * 4;
   const completedProgress =
-    activeIndex <= 1 ? 0 : ((activeIndex - 1) / TABS.length) * 100 + (activeIndex - 1) * 16;
+    activeIndex <= 1 ? 0 : ((activeIndex - 1) / TABS.length) * 100 + (activeIndex - 1) * 4;
   return (
     <>
       <div className="xl:hidden px-4 sm:px-10 md:px-16 pt-6 pb-3 w-full">
