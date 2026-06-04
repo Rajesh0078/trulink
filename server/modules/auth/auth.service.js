@@ -169,6 +169,13 @@ class AuthService {
       _id: otpDoc._id,
     });
 
+    const location = payload.location;
+    if (location?.type === "Point") {
+      const [newLng, newLat] = location.coordinates;
+      const address = await getAddressFromCoordinates(newLng, newLat);
+      payload.address = address;
+    }
+
     const user = await userRepository.createUser(payload);
     const tokens = await this._issueTokens(user);
     return { user, ...tokens };

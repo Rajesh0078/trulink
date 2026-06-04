@@ -24,6 +24,7 @@ const Profile = async () => {
         <Avatar
           className="mx-auto sm:ml-5 -mt-10 sm:-mt-14 relative custom-gradient h-20 w-20 sm:h-26 sm:w-26"
           labelClass="text-2xl sm:text-[46px]"
+          customAvatar={data.avatar}
         />
         <MyProfile user={data} />
       </div>

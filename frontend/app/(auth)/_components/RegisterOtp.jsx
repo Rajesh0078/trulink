@@ -39,6 +39,7 @@ const RegisterOtp = ({ getValues, handlePrev, handleNext }) => {
       otp: Number(otp.join(''))
     };
     const res = await registerVerify(payload);
+    console.log(res);
     if (res && !res.success) {
       toast.error(res.error);
     }

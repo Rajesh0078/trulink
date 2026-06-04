@@ -43,6 +43,16 @@ const registerSchema = z
 
     phone: z.string().trim().optional(),
     interests: z.array(z.string()).optional(),
+    avatar: z.string().trim().optional(),
+    location: z
+      .object({
+        type: z.literal("Point"),
+        coordinates: z.tuple([
+          z.number().min(-180).max(180),
+          z.number().min(-90).max(90),
+        ]),
+      })
+      .optional(),
     settings: z
       .object({
         terms_of_use: z.boolean(),

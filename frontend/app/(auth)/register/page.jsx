@@ -1,6 +1,6 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import z from 'zod';
@@ -23,6 +23,8 @@ const DEFAULT_VALUES = {
   display_name: '',
   username: '',
   interests: [],
+  location: {},
+  avatar: '',
   settings: {
     terms_of_use: true,
     use_anonymous_data: false,
@@ -62,6 +64,13 @@ const registerSchema = z
     display_name: z.string().min(2, 'Display name is required'),
     gender: z.string().min(1, 'Please select a gender'),
     interests: z.array(z.string()),
+    avatar: z.string().trim().optional(),
+    location: z
+      .object({
+        type: z.literal('Point'),
+        coordinates: z.tuple([z.number().min(-180).max(180), z.number().min(-90).max(90)])
+      })
+      .optional(),
     settings: z.object({
       terms_of_use: z.literal(true, {
         errorMap: () => ({ message: 'You must agree to the terms of use' })
@@ -128,6 +137,16 @@ const Page = () => {
       currentTab: step
     }));
   };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setValue('location', {
+        type: 'Point',
+        coordinates: [longitude, latitude]
+      });
+    });
+  }, [setValue]);
 
   const RenderedComponent = componentMap[state.currentTab];
   return (

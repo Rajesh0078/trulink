@@ -2,7 +2,20 @@
 const nextConfig = {
   devIndicators: false,
   reactStrictMode: false,
-  allowedDevOrigins: ['172.20.10.4']
+  allowedDevOrigins: ['172.20.10.4'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com'
+      }
+    ]
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb'
+    }
+  }
 };
 
 export default nextConfig;

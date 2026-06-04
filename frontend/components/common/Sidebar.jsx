@@ -10,6 +10,8 @@ import { PiGearSixFill } from 'react-icons/pi';
 import { RiMapPin2Fill } from 'react-icons/ri';
 import { TiUser } from 'react-icons/ti';
 
+import Avatar from '../ui/Avatar/Avatar';
+
 import LOGO from '@/public/icons/flame.svg';
 import { useStore } from '@/store/appProvider';
 
@@ -92,10 +94,11 @@ const Sidebar = () => {
             </Link>
           </div>
           <Link href="/profile">
-            <div className="min-h-9 w-9 bg-surface-2 text-sm text-text-2 rounded-full flex-center font-semibold border border-border-2 hover:opacity-80">
-              {user?.first_name?.[0]?.toUpperCase() || 'A'}
-              {user?.last_name?.[0]?.toUpperCase() || 'U'}
-            </div>
+            <Avatar
+              className="custom-gradient h-9 w-9"
+              labelClass="text-sm"
+              customAvatar={user?.avatar}
+            />
           </Link>
         </div>
       </div>

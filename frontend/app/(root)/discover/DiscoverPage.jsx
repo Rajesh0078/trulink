@@ -1,13 +1,15 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdFilterAlt, MdOutlineRefresh } from 'react-icons/md';
 import { Range } from 'react-range';
 
 import RadarSection from '../_components/Discover/RadarSection';
 
 import { genderTypes, interests, showTypes } from '@/lib/utils/constants';
+import { useStore } from '@/store/appProvider';
 
-const DiscoverPage = ({ users }) => {
+const DiscoverPage = ({ users, user }) => {
+  const { dispatch } = useStore();
   const [state, setState] = useState({
     show_type: 'radar',
     distance: 20,
@@ -18,6 +20,11 @@ const DiscoverPage = ({ users }) => {
     status: false,
     verified_user: false
   });
+
+  useEffect(() => {
+    dispatch({ type: 'SET_USER', payload: user });
+  }, [user, dispatch]);
+
   return (
     <>
       <div className="flex flex-col justify-between lg:flex-row h-[calc(100%-60px)] overflow-hidden">
