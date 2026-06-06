@@ -5,6 +5,7 @@ const cors = require("cors");
 const errorHandler = require("./middlewares/error.middleware");
 const authRouter = require("./modules/auth/auth.routes");
 const userRouter = require("./modules/users/user.routes");
+const activityRouter = require("./modules/activity/activity.routes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ const baseUrl = `/api/${version}`;
 
 app.use(`${baseUrl}/auth`, authRouter);
 app.use(`${baseUrl}/user`, userRouter);
+app.use(`${baseUrl}/activity`, activityRouter);
 
 app.use(errorHandler);
 

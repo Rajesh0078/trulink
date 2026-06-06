@@ -1,12 +1,9 @@
 'use client';
-import Link from 'next/link';
 import React from 'react';
 import { AiOutlineLink } from 'react-icons/ai';
-import { BiSolidPencil } from 'react-icons/bi';
 import { FaLocationDot } from 'react-icons/fa6';
-import { MdHistory } from 'react-icons/md';
 
-import { formatDate } from '@/lib/utils/helpers';
+import Avatar from '@/components/ui/Avatar/Avatar';
 import { useStore } from '@/store/appProvider';
 
 const interestColors = [
@@ -40,40 +37,70 @@ const interestColors = [
   }
 ];
 
-const Info = ({ title, info }) => {
-  return (
-    <div>
-      <p className="uppercase text-text-3">{title || 'Title'}</p>
-      <p className="capitalize">{info || '-'}</p>
-    </div>
-  );
-};
-
 const MyProfile = () => {
   const {
     state: { user }
   } = useStore();
   return (
-    <div className="py-4 px-6 sm:mt-1 w-full">
-      <h1 className="text-[20px] sm:text-2xl sm:font-bold capitalize text-center sm:text-start">
-        {user?.full_name || user?.display_name || 'User'}
-      </h1>
-      <div className="text-text-2 text-sm sm:text-[16px] flex gap-2 my-1 justify-center sm:justify-start">
-        <span className="text-blue-400">@{user?.username || 'No username'}</span>
-        <span>|</span>
-        <span>Joined {formatDate(user?.createdAt) || 'N/A'}</span>
-        <span>|</span>
-        <span className="flex items-center gap-1 text-green-400">
-          <span className="h-2 w-2 rounded-full bg-green-400"></span>
-          Online
-        </span>
+    <div className="w-full lg:w-auto">
+      <div className="card p-0 overflow-hidden h-full relative max-w-none! w-full">
+        <div className="bg-accent w-full lg:w-90 h-26"></div>
+        <div className="absolute top-12 left-1/2 -translate-x-1/2">
+          <Avatar
+            className="mx-auto relative custom-gradient h-20 w-20 sm:h-24 sm:w-24"
+            labelClass="text-2xl sm:text-[46px]"
+          />
+        </div>
+        <div className="py-4 px-6 w-full mt-10 text-center">
+          <h1 className="text-[20px] sm:text-2xl sm:font-extrabold capitalize tracking-wider">
+            {user?.display_name || 'User'}
+          </h1>
+          <div className="text-text-2 text-sm sm:text-[16px] flex gap-2 my-1 justify-center">
+            <span className="text-blue-400">@{user?.username || 'No username'}</span>
+            <span>|</span>
+            <span className="flex items-center gap-1 text-green-400">
+              <span className="h-2 w-2 rounded-full bg-green-400"></span>
+              Online
+            </span>
+          </div>
+          <p className="mt-2 text-text-2 leading-5 text-sm text-center">
+            &quot;{user?.bio || 'No bio yet updated!.'}&quot;
+          </p>
+          <div className="text-text-3 flex-center text-[13px] sm:text-sm mt-3">
+            {user?.address?.city && (
+              <div className="flex items-center justify-center gap-1">
+                <FaLocationDot className="text-[16px]" />
+                <div>
+                  {user?.address?.city || 'Unknown Location'},{' '}
+                  {user?.address?.country || 'Unknown Country'}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="mt-3 flex-center border border-border-2 rounded-xl bg-surface-2 mb-2">
+            <div className="w-full p-2 flex-center flex-col">
+              <p className="text-[20px]">1214</p>
+              <p className="text-xs text-text-3">Chats</p>
+            </div>
+            <div className="w-full p-2 flex-center flex-col border-x border-border-2">
+              <p className="text-[20px]">89</p>
+              <p className="text-xs text-text-3">Friends</p>
+            </div>
+            <div className="w-full p-2 flex-center flex-col">
+              <p className="text-[20px]">4.8</p>
+              <p className="text-xs text-text-3">Rating</p>
+            </div>
+          </div>
+          <div className="flex items-center justify-center gap-1 text-blue-400 mt-3">
+            <AiOutlineLink className="text-[18px]" />
+            <div>trulink.online/{user?.username || 'username'}</div>
+          </div>
+        </div>
       </div>
-      <p className="mt-1 text-text-3 leading-5 text-sm text-center sm:text-start">
-        &quot;{user?.bio || 'No bio yet updated!.'}&quot;
-      </p>
-      <div>
-        {user?.interests && user.interests.length > 0 && (
-          <div className="mt-3 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 flex-wrap">
+      {user?.interests?.length > 0 && (
+        <div className="card p-6 mt-6 lg:mt-4 h-full w-full max-w-none!">
+          <h2 className="capitalize font-bold text-text-2">Interests</h2>
+          <div className="mt-3 flex items-center justify-start gap-1 sm:gap-2 flex-wrap">
             {user.interests.map((interest, index) => {
               const color = interestColors[index % interestColors.length];
 
@@ -91,64 +118,8 @@ const MyProfile = () => {
               );
             })}
           </div>
-        )}
-      </div>
-      <div className="text-text-3 flex text-[13px] sm:text-sm items-center justify-center sm:justify-start mt-4 gap-5 gap-y-1 flex-wrap sm:flex-nowrap">
-        {user?.address?.city && (
-          <div className="flex items-center justify-center gap-1">
-            <FaLocationDot className="text-[16px]" />
-            <div>
-              {user?.address?.city || 'Unknown Location'},{' '}
-              {user?.address?.country || 'Unknown Country'}
-            </div>
-          </div>
-        )}
-        <div className="flex items-center justify-center gap-1 text-blue-400">
-          <AiOutlineLink className="text-[18px]" />
-          <div>trulink.online/{user?.username || 'username'}</div>
         </div>
-      </div>
-      <div className="w-full flex gap-4 mt-6 flex-wrap pb-20 sm:pb-4">
-        <div className="p-4 px-5 min-h-40 card max-w-150!">
-          <div className="flex-between">
-            <div className="text-lg font-semibold">Personal Information</div>
-            <Link
-              prefetch
-              href={'/profile/edit'}
-              className="btn-outlined flex-center gap-2 absolute right-4 top-4 px-2"
-            >
-              <BiSolidPencil className="text-[18px]" />
-              <span className="inline">Edit Profile</span>
-            </Link>
-          </div>
-          <div className="flex mt-6 gap-3 text-sm border-b border-border-2 pb-4 flex-wrap">
-            <div className="flex flex-col gap-3 flex-1">
-              <Info info={user?.display_name} title={'Display Name'} />
-              <Info info={user?.email} title={'Email'} />
-              <Info info={formatDate(user?.createdAt)} title={'Joined'} />
-            </div>
-            <div className="flex flex-col gap-3 flex-1">
-              <Info info={user?.username} title={'User Name'} />
-              <Info info={user?.dob} title={'Date of Birth'} />
-              <Info info={user?.account_type} title={'Account Type'} />
-            </div>
-          </div>
-          <div className="mt-3">
-            <p className="uppercase text-text-3">{'Address'}</p>
-            <p className="leading-6">{user?.address?.formatted_address || '-'}</p>
-          </div>
-        </div>
-        <div className="p-4 card flex-1 max-w-none!">
-          <div className="flex-between">
-            <div className="text-lg font-semibold">Recent Activity</div>
-            <button className="btn-outlined flex-center gap-2 absolute right-4 top-4 px-2">
-              <MdHistory className="text-[18px]" />
-              <span className="inline">View All</span>
-            </button>
-          </div>
-          <div className="w-full mt-6 p-5"></div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
