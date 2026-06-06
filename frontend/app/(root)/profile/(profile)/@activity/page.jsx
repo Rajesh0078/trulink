@@ -8,7 +8,7 @@ const page = async () => {
   const allActivities = await getUserActivitiesAction({ limit: 4 });
   const data = allActivities?.data?.activities || [];
   return (
-    <div className="card flex-1/2 max-w-none! min-w-120">
+    <div className="card lg:flex-1/2 max-w-none! lg:min-w-120">
       <div className="flex-between">
         <div className="text-lg font-semibold">Recent Activity</div>
         <button className="btn-outlined flex-center gap-2 px-2">

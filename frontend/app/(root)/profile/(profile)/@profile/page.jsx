@@ -19,7 +19,7 @@ const Page = () => {
     state: { user }
   } = useStore();
   return (
-    <div className="card max-w-none! flex-1/3 min-w-120 h-fit">
+    <div className="card max-w-none! lg:flex-1/3 lg:min-w-120 h-fit">
       <div className="flex-between">
         <div className="text-lg font-semibold">Personal Information</div>
         <Link prefetch href={'/profile/edit'} className="btn-outlined flex-center gap-2 px-2">
