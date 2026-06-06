@@ -1,15 +1,20 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { FaMapLocation } from 'react-icons/fa6';
+import { IoLogOut } from 'react-icons/io5';
 import { MdFilterAlt, MdOutlineRefresh } from 'react-icons/md';
 import { Range } from 'react-range';
 
 import RadarSection from '../_components/Discover/RadarSection';
 
+import { logoutAction } from '@/lib/actions/authActions';
 import { genderTypes, interests, showTypes } from '@/lib/utils/constants';
 import { useStore } from '@/store/appProvider';
 
-const DiscoverPage = ({ users, user }) => {
-  const { dispatch } = useStore();
+const DiscoverPage = ({ users }) => {
+  const {
+    state: { user }
+  } = useStore();
   const [state, setState] = useState({
     show_type: 'radar',
     distance: 20,
@@ -21,12 +26,35 @@ const DiscoverPage = ({ users, user }) => {
     verified_user: false
   });
 
-  useEffect(() => {
-    dispatch({ type: 'SET_USER', payload: user });
-  }, [user, dispatch]);
-
   return (
     <>
+      <div className="flex-between h-15 border-b border-border-2 px-4 sm:px-8 bg-surface/50">
+        <div className="text-[20px] font-extrabold">
+          Discover <span className="colored-text hidden xl:inline">Anonymous</span>
+          <span className="hidden xl:inline"> users</span>
+        </div>
+        <div className="flex gap-4">
+          <div className="text-text-2 flex-center gap-2 text-sm sm:text-[16px]">
+            <FaMapLocation />
+            <div>
+              {user.address?.city ? (
+                <span>
+                  {user?.address?.city}, {user?.address?.country}
+                </span>
+              ) : (
+                <span>Update location</span>
+              )}
+            </div>
+          </div>
+          <button
+            onClick={logoutAction}
+            className="btn-outlined px-2 sm:px-4 cursor-pointer flex-center gap-2 bg-red-600/10 border-red-600/60"
+          >
+            <IoLogOut className="text-xl mb-px text-red-600" />
+            <span className="text-red-500 hidden xl:inline">Logout</span>
+          </button>
+        </div>
+      </div>
       <div className="flex flex-col justify-between lg:flex-row h-[calc(100%-60px)] overflow-hidden">
         <div className="h-full w-full flex-center relative">
           <RadarSection users={users || []} />

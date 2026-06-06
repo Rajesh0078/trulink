@@ -32,8 +32,7 @@ const Avatar = ({ customAvatar, className, labelClass }) => {
         <div
           className={`flex-center h-full w-full rounded-full text-white font-bold ${labelClass}`}
         >
-          {user?.first_name?.[0]?.toUpperCase() || 'A'}
-          {user?.last_name?.[0]?.toUpperCase() || 'U'}
+          {user?.display_name?.[0]?.toUpperCase() || 'A'}
         </div>
       )}
     </div>

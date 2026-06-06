@@ -14,6 +14,7 @@ import NotificationSettings from '@/components/common/settings/NotificationSetti
 import PrivacySettings from '@/components/common/settings/PrivacySettings';
 import ProfileSettings from '@/components/common/settings/ProfileSettings';
 import SecuritySettings from '@/components/common/settings/SecuritySettings';
+import { useStore } from '@/store/appProvider';
 
 const SETTINGS_PREFS = [
   {
@@ -80,8 +81,11 @@ const SETTINGS_PREFS = [
   }
 ];
 
-const Settings = ({ user }) => {
+const Settings = () => {
   const [activeSetting, setActiveSetting] = useState('profile');
+  const {
+    state: { user }
+  } = useStore();
 
   const handleActionClick = (actionKey) => {
     setActiveSetting(actionKey);

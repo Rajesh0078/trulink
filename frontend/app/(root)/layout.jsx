@@ -1,16 +1,17 @@
 import React from 'react';
 
+import CustomLayout from './CustomLayout';
+
 import Sidebar from '@/components/common/Sidebar';
-import { AppProvider } from '@/store/appProvider';
 
 const layout = async ({ children }) => {
   return (
-    <AppProvider>
+    <CustomLayout>
       <div className="h-dvh flex text-white">
         <Sidebar />
         {children}
       </div>
-    </AppProvider>
+    </CustomLayout>
   );
 };
 

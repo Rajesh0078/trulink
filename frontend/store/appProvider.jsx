@@ -1,9 +1,9 @@
 'use client';
 
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
 const initialState = {
-  user: null,
+  user: {},
   users: [],
   messages: [],
   matches: [],
@@ -24,13 +24,11 @@ function appReducer(state, action) {
   }
 }
 export function AppProvider({ children, externalState }) {
-  const [state, dispatch] = useReducer(appReducer, initialState);
-
-  useEffect(() => {
-    if (externalState?.user?._id) {
-      dispatch({ type: 'SET_USER', payload: externalState.user });
-    }
-  }, [externalState]);
+  const extendedState = {
+    ...initialState,
+    ...externalState
+  };
+  const [state, dispatch] = useReducer(appReducer, extendedState);
 
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 }

@@ -8,7 +8,6 @@ export default function Loading() {
           {/* Button */}
           <div className="absolute right-4 top-4 h-9 w-36 rounded-md bg-surface-2 border border-border-2" />
         </div>
-
         {/* Profile Section */}
         <div className="px-5 sm:px-8 relative">
           {/* Avatar */}
@@ -29,7 +28,6 @@ export default function Loading() {
             </div>
           </div>
         </div>
-
         {/* Large Content Placeholder */}
         <div className="px-5 sm:px-8 mt-10">
           <div className="rounded-3xl border border-border bg-surface/50 h-80" />

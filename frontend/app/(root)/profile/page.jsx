@@ -5,11 +5,8 @@ import MyProfile from '../_components/MyProfile';
 
 import Avatar from '@/components/ui/Avatar/Avatar';
 import { logoutAction } from '@/lib/actions/authActions';
-import { getProfileAction } from '@/lib/actions/userActions';
 
 const Profile = async () => {
-  const res = await getProfileAction();
-  const data = res?.data || {};
   return (
     <div className="h-full w-full overflow-y-auto scrollbar-thumb-text-3 scrollbar-thin relative">
       <div className="bg-gray-800 w-full h-24 sm:h-40 border-b border-border relative -z-10"></div>
@@ -24,9 +21,8 @@ const Profile = async () => {
         <Avatar
           className="mx-auto sm:ml-5 -mt-10 sm:-mt-14 relative custom-gradient h-20 w-20 sm:h-26 sm:w-26"
           labelClass="text-2xl sm:text-[46px]"
-          customAvatar={data.avatar}
         />
-        <MyProfile user={data} />
+        <MyProfile />
       </div>
     </div>
   );

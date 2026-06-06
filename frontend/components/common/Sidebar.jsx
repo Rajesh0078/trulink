@@ -27,6 +27,7 @@ const Sidebar = () => {
   const {
     state: { user }
   } = useStore();
+  console.log(user);
   const pathname = usePathname();
   return (
     <>

@@ -7,6 +7,7 @@ import { FaLocationDot } from 'react-icons/fa6';
 import { MdHistory } from 'react-icons/md';
 
 import { formatDate } from '@/lib/utils/helpers';
+import { useStore } from '@/store/appProvider';
 
 const interestColors = [
   {
@@ -48,7 +49,10 @@ const Info = ({ title, info }) => {
   );
 };
 
-const MyProfile = ({ user }) => {
+const MyProfile = () => {
+  const {
+    state: { user }
+  } = useStore();
   return (
     <div className="py-4 px-6 sm:mt-1 w-full">
       <h1 className="text-[20px] sm:text-2xl sm:font-bold capitalize text-center sm:text-start">
