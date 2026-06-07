@@ -2,11 +2,35 @@ const { Server } = require("socket.io");
 const { verifyAccessToken } = require("../utils/jwt");
 
 let io;
+const onlineUsers = new Map();
+
+function emitOnlineUsers() {
+  io.emit("online-users", Array.from(onlineUsers.keys()));
+}
+
+function addUser(userId, socketId) {
+  if (!onlineUsers.has(userId)) {
+    onlineUsers.set(userId, new Set());
+  }
+
+  onlineUsers.get(userId).add(socketId);
+}
+
+function removeUser(userId, socketId) {
+  if (!onlineUsers.has(userId)) return;
+
+  const sockets = onlineUsers.get(userId);
+  sockets.delete(socketId);
+
+  if (sockets.size === 0) {
+    onlineUsers.delete(userId);
+  }
+}
 
 function initSocket(server) {
   io = new Server(server, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:3000",
+      origin: [process.env.CLIENT_URL || "http://localhost:3000"],
       credentials: true,
     },
     transports: ["websocket", "polling"],
@@ -19,8 +43,6 @@ function initSocket(server) {
         return next(new Error("Authentication error: No token provided"));
       }
       const decoded = verifyAccessToken(token);
-      // const user = await User.findById(decoded._id || decoded.id).select('-password');
-      // if (!user) return next(new Error('User not found'));
       socket.user = decoded;
 
       next();
@@ -29,8 +51,24 @@ function initSocket(server) {
     }
   });
 
-  io.on("connection", async (socket) => {
-    console.info(`socket connect with id - ${socket.id}`);
+  io.on("connection", (socket) => {
+    const userId = socket.user._id || socket.user.id;
+
+    addUser(userId, socket.id);
+
+    emitOnlineUsers();
+
+    socket.on("disconnect", () => {
+      console.log(`Disconnected: ${socket.id}`);
+
+      removeUser(userId, socket.id);
+
+      emitOnlineUsers();
+
+      if (!onlineUsers.has(userId)) {
+        io.emit("user-offline", userId);
+      }
+    });
   });
 }
 

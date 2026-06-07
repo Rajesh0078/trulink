@@ -1,12 +1,15 @@
 'use client';
 
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
+import { io } from 'socket.io-client';
 
 const initialState = {
   user: {},
   users: [],
   messages: [],
   matches: [],
+  socket: null,
+  onlineUsers: [],
   notifications: [],
   loading: false,
   error: null
@@ -19,6 +22,8 @@ function appReducer(state, action) {
     // ---------------- USER ----------------
     case 'SET_USER':
       return { ...state, user: action.payload };
+    case 'ONLINE_USERS':
+      return { ...state, onlineUsers: action.payload };
     default:
       return state;
   }
@@ -29,6 +34,24 @@ export function AppProvider({ children, externalState }) {
     ...externalState
   };
   const [state, dispatch] = useReducer(appReducer, extendedState);
+
+  useEffect(() => {
+    const socket = io(process.env.NEXT_PUBLIC_API_URL_WITHOUT_VERSION, {
+      auth: {
+        token: externalState.token
+      },
+      transports: ['websocket']
+    });
+
+    socket.on('online-users', (data) => {
+      dispatch({ type: 'ONLINE_USERS', payload: data });
+    });
+
+    return () => {
+      socket.disconnect();
+      socket.off('online-users');
+    };
+  }, [externalState]);
 
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 }

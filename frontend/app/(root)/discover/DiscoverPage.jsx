@@ -7,6 +7,8 @@ import { Range } from 'react-range';
 
 import RadarSection from '../_components/Discover/RadarSection';
 
+import Map from '@/components/common/Map/Map';
+import Modal from '@/components/ui/Modal/Modal';
 import { logoutAction } from '@/lib/actions/authActions';
 import { genderTypes, interests, showTypes } from '@/lib/utils/constants';
 import { useStore } from '@/store/appProvider';
@@ -23,7 +25,8 @@ const DiscoverPage = ({ users }) => {
     maxAge: 32,
     interests: [],
     status: false,
-    verified_user: false
+    verified_user: false,
+    modalType: ''
   });
 
   return (
@@ -34,7 +37,10 @@ const DiscoverPage = ({ users }) => {
           <span className="hidden xl:inline"> users</span>
         </div>
         <div className="flex gap-4">
-          <div className="text-text-2 flex-center gap-2 text-sm sm:text-[16px]">
+          <button
+            onClick={() => setState((p) => ({ ...p, modalType: 'update_location' }))}
+            className="text-text-2 flex-center gap-2 text-sm sm:text-[16px]"
+          >
             <FaMapLocation />
             <div>
               {user.address?.city ? (
@@ -45,7 +51,7 @@ const DiscoverPage = ({ users }) => {
                 <span>Update location</span>
               )}
             </div>
-          </div>
+          </button>
           <button
             onClick={logoutAction}
             className="btn-outlined px-2 sm:px-4 cursor-pointer flex-center gap-2 bg-red-600/10 border-red-600/60"
@@ -76,7 +82,7 @@ const DiscoverPage = ({ users }) => {
                 <MdOutlineRefresh className="text-xl" />
                 <span className="hidden sm:inline">Rescan</span>
               </button>
-              <button className="flex-center gap-2 btn-outlined px-2 sm:px-4">
+              <button className="flex-center gap-2 btn-outlined px-2 sm:px-4 lg:hidden">
                 <MdFilterAlt className="text-[19px]" />
                 <span className="">Filters</span>
               </button>
@@ -204,6 +210,14 @@ const DiscoverPage = ({ users }) => {
           </div>
         </div>
       </div>
+      <Modal
+        open={state.modalType === 'update_location'}
+        onClose={() => setState((p) => ({ ...p, modalType: '' }))}
+        title="Update location"
+        width={760}
+      >
+        <Map />
+      </Modal>
     </>
   );
 };

@@ -6,7 +6,7 @@ import Field from './Field';
 
 import { colSpanMap, colSpanMapRes } from '@/lib/utils/constants';
 
-const DynamicFrom = ({ defaultValues, submitHandler, schema, submitLabel }) => {
+const DynamicFrom = ({ defaultValues, submitHandler, schema, submitLabel, fieldClass = '' }) => {
   const { handleSubmit, control, formState, reset } = useForm({
     progressive: true,
     defaultValues: defaultValues
@@ -28,7 +28,7 @@ const DynamicFrom = ({ defaultValues, submitHandler, schema, submitLabel }) => {
         return (
           <div
             key={index}
-            className={`${canSkipResponsive ? colSpanMap[field.colSpan || 12] : colSpanMapRes[field.colSpan || 12]}`}
+            className={`${canSkipResponsive ? colSpanMap[field.colSpan || 12] : colSpanMapRes[field.colSpan || 12]} ${fieldClass}`}
           >
             <Field
               field={{ ...field, control, disabled: formState.isSubmitting || field.disabled }}

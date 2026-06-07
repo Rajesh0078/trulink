@@ -43,7 +43,7 @@ class UserRepository {
         $geoNear: {
           near: {
             type: "Point",
-            coordinates: currentUser.location.coordinates,
+            coordinates: currentUser.location?.coordinates || [0, 0],
           },
 
           distanceField: "distance",
@@ -59,6 +59,16 @@ class UserRepository {
           "location.coordinates": {
             $ne: [0, 0],
           },
+        },
+      },
+      {
+        $project: {
+          password: 0,
+          email: 0,
+          phone: 0,
+          refresh_token: 0,
+          location: 0,
+          __v: 0,
         },
       },
     ]);

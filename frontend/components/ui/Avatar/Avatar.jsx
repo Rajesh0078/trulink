@@ -16,6 +16,7 @@ const Avatar = ({ customAvatar, className, labelClass }) => {
           alt="avatar"
           width={300}
           height={300}
+          loading="eager"
           className="h-full w-full rounded-full object-cover"
         />
       )}

@@ -27,7 +27,7 @@ const Page = () => {
           <span className="inline">Edit Profile</span>
         </Link>
       </div>
-      <div className="flex mt-6 gap-3 text-sm border-b border-border-2 pb-6 flex-wrap">
+      <div className="flex mt-6 gap-3 text-sm border-b border-border-2 pb-6 flex-col md:flex-row">
         <div className="flex flex-col gap-3 flex-1">
           <Info info={user?.display_name} title={'Display Name'} />
           <Info info={user?.email} title={'Email'} />

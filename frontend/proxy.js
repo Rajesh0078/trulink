@@ -13,7 +13,7 @@ export async function proxy(req) {
   const { pathname } = req.nextUrl;
   const cookieStore = await cookies();
   const hasCookie = cookieStore.has('TRULINK_ACCESS_TOKEN');
-  const isProtectedRoute = PROTECTED_ROUTES.includes(pathname);
+  const isProtectedRoute = PROTECTED_ROUTES.includes(pathname) || pathname.startsWith('/profile/');
 
   if (isProtectedRoute && !hasCookie) {
     return NextResponse.redirect(new URL('/', req.url));

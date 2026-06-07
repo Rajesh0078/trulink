@@ -2,14 +2,17 @@ import React from 'react';
 
 import Settings from './Settings';
 
+import TitleCard from '@/components/common/TitleCard';
+
 const page = async () => {
   return (
-    <section className="page">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold">Settings</h1>
-        <h3 className="text-md text-text-2 mt-0">Customize your TruLink experience</h3>
+    <section className="px-[4%] py-6 md:py-10 w-full overflow-y-auto">
+      <TitleCard desc="Customize your TruLink experience" title="Settings" />
+      <div className="lg:flex-center">
+        <div className="flex-center items-start flex-col lg:flex-row gap-6 mt-4">
+          <Settings />
+        </div>
       </div>
-      <Settings />
     </section>
   );
 };

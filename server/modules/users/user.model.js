@@ -213,6 +213,8 @@ const UserSchema = new Schema(
       subscribe_updates: { type: Boolean, default: true },
       show_location: { type: Boolean, default: true },
       appear_in_search: { type: Boolean, default: true },
+      screenshot_block: { type: Boolean, default: false },
+      visibility: { type: String, default: "" },
     },
 
     is_deleted: {

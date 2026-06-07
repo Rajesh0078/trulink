@@ -1,7 +1,8 @@
 import React from 'react';
 
 const page = async ({ params }) => {
-  return <section className="page">{params}</section>;
+  const { profile_id } = await params;
+  return <section className="page">{profile_id}</section>;
 };
 
 export default page;

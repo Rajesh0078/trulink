@@ -128,14 +128,17 @@ const Settings = () => {
         </div>
 
         {/* Web View */}
-        <div className="card hidden lg:inline max-w-60! p-4! h-fit">
+        <div className="card hidden lg:inline min-w-60 px-4! py-5! h-fit">
           <ul className="flex flex-col">
             {SETTINGS_PREFS.map((setting) => (
-              <li key={setting.key} className="mb-4 transition-all duration-200">
-                <h2 className="text-xs font-medium ml-4 uppercase text-text-3 mb-2">
+              <li
+                key={setting.key}
+                className="mb-4 transition-all duration-200 border-b last:border-0 border-border-2"
+              >
+                <h2 className="text-xs font-medium ml-2 uppercase text-text-3 mb-2">
                   {setting.name}
                 </h2>
-                <ul className="flex flex-col gap-0.5">
+                <ul className="flex flex-col gap-0.5 pb-3">
                   {setting.actions.map((action) => {
                     const Icon = action.icon;
                     const isDanger = action.key === 'danger_zone';
@@ -156,7 +159,7 @@ const Settings = () => {
             ))}
           </ul>
         </div>
-        <div className="card w-full! max-w-none!">
+        <div className="card w-full! max-w-none! mb-16 lg:min-w-160 xl:min-w-180">
           <CurrentSetting user={user} />
         </div>
       </div>

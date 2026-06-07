@@ -27,13 +27,12 @@ const Sidebar = () => {
   const {
     state: { user }
   } = useStore();
-  console.log(user);
   const pathname = usePathname();
   return (
     <>
       {/* Mobile View */}
-      <div className="flex-center sm:hidden fixed bottom-0 w-full z-1000">
-        <div className="bg-surface/30 border-t shadow border-border-2 backdrop-blur-3xl h-13 w-full flex justify-around items-center">
+      <div className="flex-center sm:hidden fixed bottom-4 w-full px-8 z-1000">
+        <div className="bg-surface/30 border rounded-full shadow border-border-2 backdrop-blur-3xl h-13 w-full flex justify-around items-center">
           {navItems.map(({ href, icon: Icon }) => {
             const active = pathname === href;
 

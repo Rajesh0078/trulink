@@ -12,12 +12,12 @@ const layout = ({ profile, activity }) => {
       <div className="lg:flex-center">
         <div className="flex-center items-start flex-col lg:flex-row gap-6 mt-8 lg:max-w-260">
           <MyProfile />
-          <div className="flex flex-col gap-4 pb-12 lg:pb-0">
+          <div className="flex flex-col gap-4 pb-12 lg:pb-0 w-full">
             {profile}
             {activity}
             <button
               onClick={logoutAction}
-              className="btn-outlined bg-red-500/10 border-red-500! text-red-500 h-10! rounded-md! hover:bg-red-500/10"
+              className="btn-outlined bg-red-500/10 border-red-500! text-red-500 h-10! rounded-full! hover:bg-red-500/10"
             >
               Logout
             </button>

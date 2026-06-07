@@ -1,8 +1,15 @@
+import Image from 'next/image';
 import React from 'react';
 
+import UserCard from './UserCard';
+
 import Avatar from '@/components/ui/Avatar/Avatar';
+import { useStore } from '@/store/appProvider';
 
 const RadarSection = ({ users }) => {
+  const {
+    state: { onlineUsers }
+  } = useStore();
   return (
     <div className="w-full flex justify-center items-center">
       <div className="relative w-90 h-90 sm:w-100 sm:h-100 md:w-125 md:h-125">
@@ -45,7 +52,6 @@ const RadarSection = ({ users }) => {
           </div>
         </div>
 
-        {/* User Dots */}
         {users?.map((user, index) => {
           const positions = [
             { top: '15%', left: '50%' },
@@ -57,19 +63,40 @@ const RadarSection = ({ users }) => {
             { top: '40%', left: '10%' },
             { top: '20%', left: '25%' }
           ];
+
+          const isOnline = onlineUsers.includes(user._id);
+
           return (
-            <button
+            <div
               key={user._id || index}
-              className="absolute z-10 h-10 w-10 rounded-full bg-accent animate-pulse flex-center"
+              className="absolute group z-10 hover:z-9999"
               style={{
                 ...positions[index % positions.length],
                 transform: 'translate(-50%, -50%)'
               }}
             >
-              <span className="uppercase">
-                {user.first_name?.charAt(0) || user.display_name?.charAt(0)}
-              </span>
-            </button>
+              <button className="relative h-13 w-13 rounded-full bg-accent flex-center border-2 border-white">
+                {isOnline && (
+                  <span className="absolute top-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white" />
+                )}
+
+                {user?.avatar ? (
+                  <Image
+                    width={52}
+                    height={52}
+                    src={user.avatar}
+                    alt="avatar_profile"
+                    className="h-full w-full object-cover rounded-full"
+                  />
+                ) : (
+                  <span className="uppercase text-xl">{user.display_name?.charAt(0)}</span>
+                )}
+              </button>
+
+              <div className="hidden group-hover:block absolute left-1/2 top-full mt-2 -translate-x-1/2 z-10000">
+                <UserCard user={user} />
+              </div>
+            </div>
           );
         })}
 
